@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
+    public enum UnitName
+    {
+        ApprenticeArcher,
+        EmberArcher,
+        TidalArcher,
+        GaleArcher,
+        StoneArcher,
+        StormArcher,
+        ShadowArcher,
+        RadiantArcher,
+    }
     
+    [Header("Unit Settings")]
+    [SerializeField] private UnitName unitName;
     
     private void Update()
     {
