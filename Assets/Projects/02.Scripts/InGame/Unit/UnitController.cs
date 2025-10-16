@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class UnitController : MonoBehaviour
@@ -15,17 +15,40 @@ public class UnitController : MonoBehaviour
         ShadowArcher,
         RadiantArcher,
     }
-    
-    [Header("Unit Settings")]
+
+    [Header("Unit Settings")] 
     [SerializeField] private UnitName unitName;
-    
-    private void Update()
+    private ArrowSO arrowSO;
+    private UnitData unitData = new UnitData();
+
+    private void Awake()
     {
-        UpdateShotArrow();
+        unitData = UnitLoaderCSV.GetUnitByName(unitName.ToString());
+        arrowSO = Resources.Load<ArrowSO>("ArrowSO");
     }
 
-    private void UpdateShotArrow()
+    private void Start()
     {
-        
+        StartCoroutine(UpdateShotArrow());
     }
+
+    private IEnumerator UpdateShotArrow()
+    {
+        WaitForSeconds wait = new WaitForSeconds(unitData.AttackDelay);
+        while (gameObject.activeInHierarchy)
+        {
+            yield return wait;
+
+            Collider2D enemy = Physics2D.OverlapCircle(transform.position, unitData.Range, LayerMask.GetMask("Enemy"));
+
+            if (!enemy) continue;
+            Vector2 direction = (enemy.transform.position - transform.position).normalized;
+                
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0, 0, angle - 90f);
+
+            Instantiate(arrowSO.GetArrow((int)unitData.ElementType), transform.position, rotation);
+        }
+    }
+
 }

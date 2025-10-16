@@ -8,27 +8,14 @@ using System.Linq;
 
 public static class UnitLoaderCSV
 {
-    private static List<UnitDataCSV> _units;
+    private static List<UnitData> units;
     
-    public static List<UnitDataCSV> Units
-    {
-        get
-        {
-            if (_units == null)
-            {
-                LoadUnits();
-            }
-            return _units;
-        }
-    }
-
     private static void LoadUnits()
     {
         TextAsset csvText = Resources.Load<TextAsset>("UnitData");
         if (csvText == null)
         {
-            Debug.LogError("CSV file not found!");
-            _units = new List<UnitDataCSV>();
+            units = new List<UnitData>();
             return;
         }
 
@@ -39,7 +26,20 @@ public static class UnitLoaderCSV
                    TrimOptions = TrimOptions.Trim
                }))
         {
-            _units = csv.GetRecords<UnitDataCSV>().ToList();
+            units = csv.GetRecords<UnitData>().ToList();
         }
+    }
+    
+    public static UnitData GetUnitByName(string unitName)
+    {
+        if (units == null)
+        {
+            LoadUnits();
+        }
+        
+        var unit = units.FirstOrDefault(u => 
+            u.Name.Equals(unitName, System.StringComparison.OrdinalIgnoreCase));
+        
+        return unit;
     }
 }
