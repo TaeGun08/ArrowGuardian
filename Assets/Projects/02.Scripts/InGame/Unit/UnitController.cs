@@ -29,10 +29,10 @@ public class UnitController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(UpdateShotArrow());
+        StartCoroutine(ShotArrowCoroutine());
     }
 
-    private IEnumerator UpdateShotArrow()
+    private IEnumerator ShotArrowCoroutine()
     {
         WaitForSeconds wait = new WaitForSeconds(unitData.AttackDelay);
         while (gameObject.activeInHierarchy)
@@ -50,5 +50,4 @@ public class UnitController : MonoBehaviour
             Instantiate(arrowSO.GetArrow((int)unitData.ElementType), transform.position, rotation);
         }
     }
-
 }
