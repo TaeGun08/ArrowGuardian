@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ArrowSO", menuName = "Scriptable Objects/ArrowSO")]
-public class ArrowSO : ScriptableObject
+[CreateAssetMenu(fileName = "ArrowPrefabSO", menuName = "Scriptable Objects/ArrowPrefabSO")]
+public class ArrowPrefabSO : ScriptableObject
 {
     [Header("Arrows Settings")] 
     [SerializeField] private Arrow[] arrows;

@@ -18,13 +18,13 @@ public class UnitController : MonoBehaviour
 
     [Header("Unit Settings")] 
     [SerializeField] private UnitName unitName;
-    private ArrowSO arrowSO;
+    private ArrowPrefabSO arrowPrefabSo;
     private UnitData unitData = new UnitData();
 
     private void Awake()
     {
         unitData = UnitLoaderCSV.GetUnitByName(unitName.ToString());
-        arrowSO = Resources.Load<ArrowSO>("ArrowSO");
+        arrowPrefabSo = Resources.Load<ArrowPrefabSO>("ArrowSO");
     }
 
     private void Start()
@@ -47,7 +47,7 @@ public class UnitController : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(0, 0, angle - 90f);
 
-            Instantiate(arrowSO.GetArrow((int)unitData.ElementType), transform.position, rotation);
+            Instantiate(arrowPrefabSo.GetArrow((int)unitData.ElementType), transform.position, rotation);
         }
     }
 }

@@ -15,8 +15,8 @@ public class EnemyData
     public float SkillCooldown { get; set; }
 }
 
-[CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptable Objects/EnemySO")]
-public class EnemySO : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyDataSO", menuName = "Scriptable Objects/EnemyDataSO")]
+public class EnemyDataSO : ScriptableObject
 {
     [Header("Enemy Settings")]
     [SerializeField] private EnemyData[] enemyDatas;
