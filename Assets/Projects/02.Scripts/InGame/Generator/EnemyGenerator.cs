@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    private ObjectPool<Enemy> enemyFire;
+    private ObjectPool<Enemy> enemyNone;
 
     private void Awake()
     {
- //       enemyFire = new ObjectPool<Enemy>();
+        //enemyNone = new ObjectPool<Enemy>();
     }
 
     public void DequeueEnemy()

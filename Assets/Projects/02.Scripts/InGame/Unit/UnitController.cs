@@ -24,7 +24,7 @@ public class UnitController : MonoBehaviour
     private void Awake()
     {
         unitData = UnitLoaderCSV.GetUnitByName(unitName.ToString());
-        arrowPrefabSo = Resources.Load<ArrowPrefabSO>("ArrowSO");
+        arrowPrefabSo = Resources.Load<ArrowPrefabSO>("ArrowPrefabSO");
     }
 
     private void Start()
