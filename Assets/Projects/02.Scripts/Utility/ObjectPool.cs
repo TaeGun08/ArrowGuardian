@@ -14,7 +14,7 @@ public class ObjectPool<T> where T : MonoBehaviour
 
         for (int i = 0; i < initialCount; i++)
         {
-            var obj = GameObject.Instantiate(prefab, parent);
+            var obj = Object.Instantiate(prefab, parent);
             obj.gameObject.SetActive(false);
             pool.Enqueue(obj);
         }
@@ -25,7 +25,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         if (pool.Count > 0)
             return pool.Dequeue();
 
-        var obj = GameObject.Instantiate(prefab, parent);
+        var obj = Object.Instantiate(prefab, parent);
         obj.gameObject.SetActive(false);
         return obj;
     }

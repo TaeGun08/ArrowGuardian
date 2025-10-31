@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c9e9acf1a025794d85ae120d23028d4, type: 3}
   m_Name: EnemyPrefabSO
   m_EditorClassIdentifier: 
-  <EnemyPrefabs>k__BackingField:
+  enemyPrefabs:
   - {fileID: 5684627814913087625, guid: fb231ffb256ca79488e5d9c9200b3937, type: 3}
+  - {fileID: 6164473085184557925, guid: c937e8d14968da244b6efb57d1577c33, type: 3}
+  - {fileID: 7482298663706524416, guid: 52fe796552039464a99d7f4f234b6419, type: 3}
+  - {fileID: 8721089124373957618, guid: 14f57cbb1f3e4dc48a5057f53f978eb0, type: 3}
+  - {fileID: 723915058731096282, guid: 7d6386774dffe0249aefd4f1f624f850, type: 3}
+  - {fileID: 531629492969387546, guid: 334f7d7c2c93ed544a2387313bed38bd, type: 3}
+  - {fileID: 7353435493516577942, guid: e0fe8fa15f564834ca0b11a829e391c5, type: 3}
+  - {fileID: 7544423635211616332, guid: 8ee9eda3b9ddf744688ca8e2538720db, type: 3}
