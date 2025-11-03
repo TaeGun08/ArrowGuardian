@@ -2,11 +2,12 @@ using UnityEngine;
 
 public interface IStatusEffect
 {
-    public void Apply(Enemy target);
+    public IDamageAble Target { get; set; }
+    
+    public void Apply();
     public void ChangeDuration(float sum);
-    public void Remove(Enemy target); 
+    public void Remove(); 
 }
-
 
 public static class StatusEffectFactory
 {

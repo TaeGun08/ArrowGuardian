@@ -55,7 +55,6 @@ public class CombatManager : SingletonBase<CombatManager>
         float finalDamage = CalculateFinalDamage(baseDamage, attackerType, defenderType);
 
         target.TakeDamage((int)finalDamage);
-        Debug.Log((int)finalDamage);
     }
 
     public void HandleApplyStatusEffect(List<IStatusEffect> statusEffects)
@@ -67,6 +66,10 @@ public class CombatManager : SingletonBase<CombatManager>
             switch (statusEffect)
             {
                 case BurnEffect burnEffect:
+                    burnEffect.Apply();
+                    break;
+                case SlowEffect slowEffect:
+                    slowEffect.Apply();
                     break;
                 default:
                     break;

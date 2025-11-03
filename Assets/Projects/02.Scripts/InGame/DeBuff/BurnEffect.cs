@@ -7,13 +7,10 @@ public class BurnEffect : IStatusEffect
 
     private float startAt;
     private float duration;
-    
-    public void CheckLife(float currentTime)
-    {
-        
-    }
-    
-    public void Apply(Enemy target)
+    public IDamageAble Target { get; set; }
+
+//이거 지속성인지 단일성인지 나눠서 기능 구현해야 함    
+    public void Apply()
     {
         float currentTime = Time.time - startAt;
 
@@ -28,7 +25,7 @@ public class BurnEffect : IStatusEffect
         
     }
 
-    public void Remove(Enemy target)
+    public void Remove()
     {
         
     }

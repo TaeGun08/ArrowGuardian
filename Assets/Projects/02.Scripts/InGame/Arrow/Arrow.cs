@@ -15,6 +15,8 @@ public abstract class Arrow : MonoBehaviour, IElementType
     [SerializeField] protected float arrowSpeed = 20f;
 
     private IDamageAble target;
+    
+    private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
 
     protected virtual void Start()
     {
@@ -28,6 +30,8 @@ public abstract class Arrow : MonoBehaviour, IElementType
 
         if (Vector2.Distance(transform.position, target.Transform.position) > 0.1f) return;
         combatManager.HandleDamage(target, damage, elementType);
+        InjectStatusEffect(elementType);
+        
         if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
         
         target = null;
@@ -48,12 +52,34 @@ public abstract class Arrow : MonoBehaviour, IElementType
     {
         this.target = target;
     }
-
-    private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
     
-    public void InjectStatusEffect(IStatusEffect statusEffect)
+    protected void InjectStatusEffect(ElementType elementType)
     {
+        IStatusEffect statusEffect = null;
+        switch (elementType)
+        {
+            case ElementType.None:
+                break;
+            case ElementType.Flame:
+                statusEffect = StatusEffectFactory.CreateStatusEffect<BurnEffect>();
+                break;
+            case ElementType.Water:
+                statusEffect = StatusEffectFactory.CreateStatusEffect<SlowEffect>();
+                break;
+            case ElementType.Wind:
+                break;
+            case ElementType.Earth:
+                break;
+            case ElementType.Lightning:
+                break;
+            case ElementType.Dark:
+                break;
+            case ElementType.Light:
+                break;
+        }
+        
+        if (statusEffect == null) return;
+        statusEffect.Target = target;
         statusEffects.Add(statusEffect);
     }
-    
 }

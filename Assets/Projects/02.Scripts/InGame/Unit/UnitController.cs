@@ -49,9 +49,6 @@ public class UnitController : MonoBehaviour
 
             Arrow arrow = Instantiate(arrowPrefabSo.GetArrow((int)unitData.ElementType), transform.position, rotation);
             arrow.SetTarget(enemy.GetComponent<IDamageAble>());
-
-            IStatusEffect statusEffect = StatusEffectFactory.CreateStatusEffect<BurnEffect>();
-            arrow.InjectStatusEffect(statusEffect);
         }
     }
 }
