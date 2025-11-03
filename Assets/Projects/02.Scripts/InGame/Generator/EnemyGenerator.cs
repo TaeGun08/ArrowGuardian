@@ -23,49 +23,49 @@ public class EnemyGenerator : MonoBehaviour
     private void Awake()
     {
         enemyPrefabSo = Resources.Load<EnemyPrefabSO>("EnemyPrefabSO");
-        EnemyConstructor();
     }
 
-    private void EnemyConstructor()
+    private ObjectPool<Enemy> GetNewPoolPrefab(ElementType elementType, int initialCount, Transform transform)
     {
-        enemyNone = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.None), initialCount, transform);
-        enemyFlame = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Flame), initialCount, transform);
-        enemyWater = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Water), initialCount, transform);
-        enemyWind = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Wind), initialCount, transform);
-        enemyEarth = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Earth), initialCount, transform);
-        enemyLightning = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Lightning), initialCount, transform);
-        enemyDark = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Dark), initialCount, transform);
-        enemyLight = new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(ElementType.Light), initialCount, transform);
+        return new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(elementType), initialCount, transform);
     }
-
-    public void CreateOrGetPool(ElementType elementType)
+    
+    public void CreateAndGetPool(ElementType elementType)
     {
         Enemy enemy = null;
         
         switch (elementType)
         {
             case ElementType.None:
+                enemyNone ??= GetNewPoolPrefab(ElementType.None, initialCount, transform);
                 enemy = enemyNone.Get();
                 break;
             case ElementType.Flame:
+                enemyFlame ??= GetNewPoolPrefab(ElementType.Flame, initialCount, transform);
                 enemy = enemyFlame.Get();
                 break;
             case ElementType.Water:
+                enemyWater ??= GetNewPoolPrefab(ElementType.Water, initialCount, transform);
                 enemy = enemyWater.Get();
                 break;
             case ElementType.Wind:
+                enemyWind ??= GetNewPoolPrefab(ElementType.Wind, initialCount, transform);
                 enemy = enemyWind.Get();
                 break;
             case ElementType.Earth:
+                enemyEarth ??= GetNewPoolPrefab(ElementType.Earth, initialCount, transform);
                 enemy = enemyEarth.Get();
                 break;
             case ElementType.Lightning:
+                enemyLightning ??= GetNewPoolPrefab(ElementType.Lightning, initialCount, transform);
                 enemy = enemyLightning.Get();
                 break;
             case ElementType.Dark:
+                enemyDark ??= GetNewPoolPrefab(ElementType.Dark, initialCount, transform);
                 enemy = enemyDark.Get();
                 break;
             case ElementType.Light:
+                enemyLight ??= GetNewPoolPrefab(ElementType.Light, initialCount, transform);
                 enemy = enemyLight.Get();
                 break;
         }
@@ -78,7 +78,7 @@ public class EnemyGenerator : MonoBehaviour
         enemy.transform.position = randomPos;
     }
 
-    public void Return(ElementType elementType, Enemy returnEnemy)
+    public void ReturnEnemy(ElementType elementType, Enemy returnEnemy)
     {
         switch (elementType)
         {
@@ -109,20 +109,20 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
 
-    private IEnumerator GenerateCoroutine(ElementType elementType, int count, float delay)
+    private IEnumerator GenerateEnemyCoroutine(ElementType elementType, int count, float delay)
     {
         WaitForSeconds wait = new WaitForSeconds(delay);
         
         while (count > 0)
         {
-            CreateOrGetPool(elementType);
+            CreateAndGetPool(elementType);
             count--;
             yield return wait;
         }
     }
 
-    public void Generate(ElementType elementType, int count, float delay)
+    public void GenerateEnemy(ElementType elementType, int count, float delay)
     {
-        StartCoroutine(GenerateCoroutine(elementType, count, delay));
+        StartCoroutine(GenerateEnemyCoroutine(elementType, count, delay));
     }
 }

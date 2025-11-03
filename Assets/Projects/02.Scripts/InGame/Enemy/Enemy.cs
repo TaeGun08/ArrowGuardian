@@ -5,7 +5,8 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IBuffabl
     public IDamageAble Target => this;
 
     public GameObject GameObject => gameObject;
-    
+    public Transform Transform => transform;
+
     [Header("Enemy Settings")]
     [SerializeField] private ElementType elementType;
     public ElementType ElementType => elementType;
@@ -25,11 +26,13 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IBuffabl
         if (enemyData.Health <= 0) Destroy(gameObject);
     }
     
-    public void ApplyDebuff(DeBuff debuff)
+    public void ApplyDeBuff(DeBuff debuff)
     {
+        
     }
 
     public void ApplyBuff(Buff buff)
     {
+        
     }
 }

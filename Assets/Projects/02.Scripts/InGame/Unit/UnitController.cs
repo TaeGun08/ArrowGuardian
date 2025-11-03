@@ -47,7 +47,11 @@ public class UnitController : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(0, 0, angle - 90f);
 
-            Instantiate(arrowPrefabSo.GetArrow((int)unitData.ElementType), transform.position, rotation);
+            Arrow arrow = Instantiate(arrowPrefabSo.GetArrow((int)unitData.ElementType), transform.position, rotation);
+            arrow.SetTarget(enemy.GetComponent<IDamageAble>());
+
+            IStatusEffect statusEffect = StatusEffectFactory.CreateStatusEffect<BurnEffect>();
+            arrow.InjectStatusEffect(statusEffect);
         }
     }
 }

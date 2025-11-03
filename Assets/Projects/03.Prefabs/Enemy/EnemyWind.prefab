@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6678317295991959578}
   - component: {fileID: 7133485385663119119}
-  - component: {fileID: 8922137012488294743}
   - component: {fileID: 8721089124373957618}
   m_Layer: 6
   m_Name: EnemyWind
@@ -81,33 +80,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!50 &8922137012488294743
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12905882566830105}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &8721089124373957618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ccac86cd8be4d48a273852483ec223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementType: 3
 --- !u!1 &5013573785318034247
 GameObject:
   m_ObjectHideFlags: 0
