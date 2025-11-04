@@ -2,31 +2,56 @@ using UnityEngine;
 
 public class BurnEffect : IStatusEffect
 {
-    private float elapsed;
     private float tickTimer;
-
-    private float startAt;
+    private float tickDelay;
+    
     private float duration;
+    private float timer;
+    
     public IDamageAble Target { get; set; }
-
-//이거 지속성인지 단일성인지 나눠서 기능 구현해야 함    
+    
     public void Apply()
     {
-        float currentTime = Time.time - startAt;
+        tickTimer = 0f;
+        tickDelay = 0.5f;
+        duration = 2f;
+    }
 
-        if (duration < currentTime)
+    public void UpdateStatusEffect()
+    {
+        if (Target == null)
         {
-            
+            Remove();
+            return;
+        }
+        
+        tickTimer += Time.deltaTime;
+        timer += Time.deltaTime;
+        
+        if (tickDelay <= tickTimer)
+        {
+            Target.TakeDamage(1);
+            tickTimer = 0f;
+        }
+
+        if (duration <= timer)
+        {
+            Remove();
         }
     }
-    
+
     public void ChangeDuration(float sum)
     {
-        
+        duration = sum;
     }
 
-    public void Remove()
+    public void Refresh()
     {
-        
+        timer = 0f;
+    }
+
+    public void Remove() 
+    {
+        CombatManager.Instance.RemoveStatusEffect(this);
     }
 }

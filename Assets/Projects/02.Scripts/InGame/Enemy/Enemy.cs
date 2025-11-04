@@ -18,6 +18,7 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IBuffabl
     {
         enemySo = Resources.Load<EnemyDataSO>("EnemyDataSO");
         enemyData = enemySo.GetEnemyData((int)elementType);
+        enemyData.Health = 1000;
     }
 
     public virtual void TakeDamage(int damage)

@@ -8,7 +8,15 @@ public class SlowEffect : IStatusEffect
     {
     }
 
+    public void UpdateStatusEffect()
+    {
+    }
+
     public void ChangeDuration(float sum)
+    {
+    }
+
+    public void Refresh()
     {
     }
 

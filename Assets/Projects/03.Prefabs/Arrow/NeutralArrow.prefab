@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  elementType: 1
+  elementType: 0
   arrowSpeed: 20
 --- !u!61 &3911937197536854415
 BoxCollider2D:

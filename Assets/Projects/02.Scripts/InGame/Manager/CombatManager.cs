@@ -1,19 +1,29 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class CombatManager : SingletonBase<CombatManager>
 {
+    public readonly List<IStatusEffect> statusEffectList = new List<IStatusEffect>();
+    private Action combatEvent;
+
+    private void Update()
+    {
+        if (combatEvent != null)
+        {
+            combatEvent?.Invoke();
+        }
+    }
+
     private float CalculateFinalDamage(float baseDamage, ElementType attacker, ElementType defender)
     {
         float multiplier = GetElementMultiplier(attacker, defender);
         float finalDamage = baseDamage * multiplier;
         return Mathf.Round(finalDamage);
     }
-    
+
     /// <summary>
-    /// 속성별 
+    /// 속성별 대미지 계수 반환
     /// </summary>
     /// <param name="attacker"></param>
     /// <param name="defender"></param>
@@ -22,7 +32,7 @@ public class CombatManager : SingletonBase<CombatManager>
     {
         if (attacker == ElementType.None || defender == ElementType.None)
             return 1f;
-        
+
         if ((attacker == ElementType.Light && defender == ElementType.Dark) ||
             (attacker == ElementType.Dark && defender == ElementType.Light))
             return 2.0f;
@@ -40,12 +50,12 @@ public class CombatManager : SingletonBase<CombatManager>
             case ElementType.Earth when defender == ElementType.Wind:
             case ElementType.Wind when defender == ElementType.Flame:
                 return 0.5f;
-            
+
             default:
                 return 1f;
         }
     }
-    
+
     public void HandleDamage(IDamageAble target, float baseDamage, ElementType attackerType)
     {
         if (target == null) return;
@@ -57,26 +67,46 @@ public class CombatManager : SingletonBase<CombatManager>
         target.TakeDamage((int)finalDamage);
     }
 
-    public void HandleApplyStatusEffect(List<IStatusEffect> statusEffects)
+    public void HandleApplyStatusEffect(List<IStatusEffect> newStatusEffects)
     {
-        for (int i = 0; i < statusEffects.Count; i++)
+        foreach (var statusEffect in newStatusEffects)
         {
-            var statusEffect = statusEffects[i];
+            bool exists = statusEffectList.Exists(e =>
+                e.Target == statusEffect.Target &&
+                e.GetType() == statusEffect.GetType());
             
-            switch (statusEffect)
+            if (exists == false)
             {
-                case BurnEffect burnEffect:
-                    burnEffect.Apply();
-                    break;
-                case SlowEffect slowEffect:
-                    slowEffect.Apply();
-                    break;
-                default:
-                    break;
+                statusEffectList.Add(statusEffect);
+                Debug.Log($"HandleApplyStatusEffect ::: {statusEffectList.Count}");
+                statusEffect.Apply();
+                combatEvent += statusEffect.UpdateStatusEffect;
+            }
+            else
+            {
+                IStatusEffect existing = statusEffectList.Find(e =>
+                    e.Target == statusEffect.Target &&
+                    e.GetType() == statusEffect.GetType());
+                
+                Debug.Log($"HandleApplyStatusEffect REFRESH ::: {statusEffectList.Count}");
+                existing?.Refresh();
             }
         }
     }
 
+    /// <summary>
+    /// 효과 제거
+    /// </summary>
+    /// <param name="effect"></param>
+    public void RemoveStatusEffect(IStatusEffect effect)
+    {
+        Debug.Log("RemoveStatusEffect");
+        
+        if (effect == null) return;
+        combatEvent -= effect.UpdateStatusEffect;
+        statusEffectList.Remove(effect);
+    }
+    
     /// <summary>
     /// 버프 적용
     /// </summary>
