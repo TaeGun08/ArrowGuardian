@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3952666216556071921}
-  - component: {fileID: 5497117442110304263}
+  - component: {fileID: -7850428476646788449}
   - component: {fileID: 3073861392071513729}
   m_Layer: 0
   m_Name: ElectricArrow
@@ -121,7 +121,7 @@ Transform:
   - {fileID: 8704671863353730230}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5497117442110304263
+--- !u!114 &-7850428476646788449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7683132174362299618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60df94ccd35ad1a41837063afaa2fe91, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e38d8dcb4b82534bb3bb961cbc9d786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10

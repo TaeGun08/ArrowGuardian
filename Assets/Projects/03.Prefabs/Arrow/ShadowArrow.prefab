@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5122538626688786793}
-  - component: {fileID: 6246321949398957948}
+  - component: {fileID: 8460674642488244874}
   - component: {fileID: 183868667155171653}
   m_Layer: 0
   m_Name: ShadowArrow
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 1772883415902338981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6246321949398957948
+--- !u!114 &8460674642488244874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1845067827586313378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60df94ccd35ad1a41837063afaa2fe91, type: 3}
+  m_Script: {fileID: 11500000, guid: d62579bca0584e94aa6a3458672fd89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10

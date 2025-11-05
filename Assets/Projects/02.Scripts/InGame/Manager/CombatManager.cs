@@ -5,14 +5,11 @@ using UnityEngine;
 public class CombatManager : SingletonBase<CombatManager>
 {
     public readonly List<IStatusEffect> statusEffectList = new List<IStatusEffect>();
-    private Action combatEvent;
+    private Action statusEffectEvent;
 
     private void Update()
     {
-        if (combatEvent != null)
-        {
-            combatEvent?.Invoke();
-        }
+        if (statusEffectEvent != null) statusEffectEvent?.Invoke();
     }
 
     private float CalculateFinalDamage(float baseDamage, ElementType attacker, ElementType defender)
@@ -78,9 +75,8 @@ public class CombatManager : SingletonBase<CombatManager>
             if (exists == false)
             {
                 statusEffectList.Add(statusEffect);
-                Debug.Log($"HandleApplyStatusEffect ::: {statusEffectList.Count}");
                 statusEffect.Apply();
-                combatEvent += statusEffect.UpdateStatusEffect;
+                statusEffectEvent += statusEffect.UpdateStatusEffect;
             }
             else
             {
@@ -88,7 +84,6 @@ public class CombatManager : SingletonBase<CombatManager>
                     e.Target == statusEffect.Target &&
                     e.GetType() == statusEffect.GetType());
                 
-                Debug.Log($"HandleApplyStatusEffect REFRESH ::: {statusEffectList.Count}");
                 existing?.Refresh();
             }
         }
@@ -100,10 +95,8 @@ public class CombatManager : SingletonBase<CombatManager>
     /// <param name="effect"></param>
     public void RemoveStatusEffect(IStatusEffect effect)
     {
-        Debug.Log("RemoveStatusEffect");
-        
         if (effect == null) return;
-        combatEvent -= effect.UpdateStatusEffect;
+        statusEffectEvent -= effect.UpdateStatusEffect;
         statusEffectList.Remove(effect);
     }
     

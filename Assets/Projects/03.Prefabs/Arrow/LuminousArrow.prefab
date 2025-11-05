@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8842444028734751265}
-  - component: {fileID: 294136173932956752}
+  - component: {fileID: 6604107942867751133}
   - component: {fileID: 9041935774497713770}
   m_Layer: 0
   m_Name: LuminousArrow
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 1856500816027600523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &294136173932956752
+--- !u!114 &6604107942867751133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 87047351356479552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60df94ccd35ad1a41837063afaa2fe91, type: 3}
+  m_Script: {fileID: 11500000, guid: 25f34e02fbf9a594caf1078b80500dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10

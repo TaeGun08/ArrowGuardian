@@ -8,10 +8,12 @@ public abstract class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if (!instance) return instance;
+            if (instance) return instance;
 
             instance = FindFirstObjectByType<T>();
-            if (!instance) return instance;
+            
+            if (instance) return instance;
+            
             GameObject obj = new GameObject(typeof(T).Name);
             instance = obj.AddComponent<T>();
             DontDestroyOnLoad(instance);

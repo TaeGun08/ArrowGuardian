@@ -11,14 +11,15 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IBuffabl
     [SerializeField] private ElementType elementType;
     public ElementType ElementType => elementType;
 
-    protected EnemyDataSO enemySo;
+    //protected EnemyDataSO enemySo;
     protected EnemyData enemyData = new EnemyData();
     
     protected virtual void Awake()
     {
-        enemySo = Resources.Load<EnemyDataSO>("EnemyDataSO");
-        enemyData = enemySo.GetEnemyData((int)elementType);
-        enemyData.Health = 1000;
+        enemyData = EnemyLoaderCSV.GetEnemyByElementType(elementType);
+        //enemySo = Resources.Load<EnemyDataSO>("EnemyDataSO");
+        //enemyData = enemySo.GetEnemyData((int)elementType);
+        //enemyData.Health = 1000;
     }
 
     public virtual void TakeDamage(int damage)

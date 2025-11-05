@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5251132276217129298}
-  - component: {fileID: 7307015523191558205}
+  - component: {fileID: -7950725459892878036}
   - component: {fileID: 4816593589335360360}
   m_Layer: 0
   m_Name: StoneArrow
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 503958809701048618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7307015523191558205
+--- !u!114 &-7950725459892878036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1645911621591775422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60df94ccd35ad1a41837063afaa2fe91, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fbe813401e9ad546ad26204706ff023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10

@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3508792411380451339}
-  - component: {fileID: 4735568705429607847}
+  - component: {fileID: 8564571655395411026}
   - component: {fileID: 9077771177507642414}
   m_Layer: 0
   m_Name: TempestArrow
@@ -121,7 +121,7 @@ Transform:
   - {fileID: 7928707468161393324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4735568705429607847
+--- !u!114 &8564571655395411026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5711436188662883353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60df94ccd35ad1a41837063afaa2fe91, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e80c8847b260a747af174e25eee3221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10

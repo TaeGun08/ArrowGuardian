@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDatas:
   - elementType: 0
+  - elementType: 1
+  - elementType: 2
+  - elementType: 3
+  - elementType: 4
+  - elementType: 5
+  - elementType: 6
+  - elementType: 7

@@ -29,10 +29,10 @@ public abstract class Arrow : MonoBehaviour, IElementType
         transform.position += transform.up * (arrowSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, target.Transform.position) > 0.1f) return;
-        combatManager.HandleDamage(target, damage, elementType);
+        CombatManager.Instance.HandleDamage(target, damage, elementType);
         InjectStatusEffect(elementType);
         
-        //if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
+        if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
         target = null;
         Destroy(gameObject);
     }
@@ -80,6 +80,5 @@ public abstract class Arrow : MonoBehaviour, IElementType
         if (statusEffect == null) return;
         statusEffect.Target = target;
         statusEffects.Add(statusEffect);
-        combatManager.statusEffectList.Add(statusEffect);
     }
 }

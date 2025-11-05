@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7054000462279928842}
-  - component: {fileID: 2678562343361188324}
+  - component: {fileID: 6191566559547379025}
   - component: {fileID: 4587965665126236981}
   m_Layer: 0
   m_Name: AquaArrow
@@ -121,7 +121,7 @@ Transform:
   - {fileID: 4744154192855661694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2678562343361188324
+--- !u!114 &6191566559547379025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4070484646340439685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60df94ccd35ad1a41837063afaa2fe91, type: 3}
+  m_Script: {fileID: 11500000, guid: a8670ea7f566d3e48b435e5ac7133cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
