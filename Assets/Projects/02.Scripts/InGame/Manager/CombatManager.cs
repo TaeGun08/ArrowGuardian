@@ -99,22 +99,4 @@ public class CombatManager : SingletonBase<CombatManager>
         statusEffectEvent -= effect.UpdateStatusEffect;
         statusEffectList.Remove(effect);
     }
-    
-    /// <summary>
-    /// 버프 적용
-    /// </summary>
-    public void HandleBuff(IBuffable target, Buff buff)
-    {
-        if (target == null) return;
-        target.ApplyBuff(buff);
-    }
-
-    /// <summary>
-    /// 디버프 적용
-    /// </summary>
-    public void HandleDeBuff(IDeBuffable target, DeBuff debuff)
-    {
-        if (target == null) return;
-        target.ApplyDeBuff(debuff);
-    }
 }

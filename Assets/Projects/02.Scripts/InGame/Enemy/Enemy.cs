@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IBuffable, IDeBuffable
+public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovement
 {
     public IDamageAble Target => this;
 
@@ -11,30 +11,21 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IBuffabl
     [SerializeField] private ElementType elementType;
     public ElementType ElementType => elementType;
 
-    //protected EnemyDataSO enemySo;
     protected EnemyData enemyData = new EnemyData();
+    public EnemyData EnemyData => enemyData;
+    
+    public bool IsStop { get; set; }
+    public float Speed { get; set; }
     
     protected virtual void Awake()
     {
         enemyData = EnemyLoaderCSV.GetEnemyByElementType(elementType);
-        //enemySo = Resources.Load<EnemyDataSO>("EnemyDataSO");
-        //enemyData = enemySo.GetEnemyData((int)elementType);
-        //enemyData.Health = 1000;
+        Speed = enemyData.MoveSpeed;
     }
 
     public virtual void TakeDamage(int damage)
     {
         enemyData.Health -= damage;
         if (enemyData.Health <= 0) Destroy(gameObject);
-    }
-    
-    public void ApplyDeBuff(DeBuff debuff)
-    {
-        
-    }
-
-    public void ApplyBuff(Buff buff)
-    {
-        
     }
 }

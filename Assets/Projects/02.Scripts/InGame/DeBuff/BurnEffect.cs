@@ -30,8 +30,8 @@ public class BurnEffect : IStatusEffect
         
         if (tickDelay <= tickTimer)
         {
-            Debug.Log($"{Target.GameObject.name} ::: Burning");
-            Target.TakeDamage(1);
+            Debug.Log($"{Target?.GameObject.name} ::: Burning");
+            Target?.TakeDamage(1);
             tickTimer = 0f;
         }
 
@@ -53,6 +53,8 @@ public class BurnEffect : IStatusEffect
 
     public void Remove()
     {
+        Debug.Log($"{Target?.GameObject.name} ::: Burn End");
+        Target = null;
         CombatManager.Instance.RemoveStatusEffect(this);
     }
 }

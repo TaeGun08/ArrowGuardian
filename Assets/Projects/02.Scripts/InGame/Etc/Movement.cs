@@ -1,12 +1,17 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public bool IsStop { get; set; }
-    public float Speed { get; set; }
+    private IMovement movement;
+
+    private void Start()
+    {
+        movement = GetComponent<IMovement>();
+    }
 
     private void Update()
     {
-        transform.Translate(Vector3.down * (Speed * Time.deltaTime), Space.World);
+        transform.Translate(Vector3.down * (movement.Speed * Time.deltaTime), Space.World);
     }
 }
