@@ -8,12 +8,12 @@ public abstract class Arrow : MonoBehaviour, IElementType
     protected CombatManager combatManager;
 
     [Header("Arrow Settings")] 
-    [SerializeField] protected int damage;
     [SerializeField] protected ElementType elementType;
 
     public ElementType ElementType => elementType;
     [SerializeField] protected float arrowSpeed = 20f;
 
+    private IDamageAble sender;
     private IDamageAble target;
     
     private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
@@ -29,10 +29,11 @@ public abstract class Arrow : MonoBehaviour, IElementType
         transform.position += transform.up * (arrowSpeed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, target.Transform.position) > 0.1f) return;
-        CombatManager.Instance.HandleDamage(target, damage, elementType);
+        CombatManager.Instance.HandleDamage(sender, target, 1);
         InjectStatusEffect(elementType);
         
         if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
+        sender = null;
         target = null;
         Destroy(gameObject);
     }
@@ -47,6 +48,11 @@ public abstract class Arrow : MonoBehaviour, IElementType
         }
     }
 
+    public void SetSender(IDamageAble sender)
+    {
+        this.sender = sender;
+    }
+    
     public void SetTarget(IDamageAble target)
     {
         this.target = target;
@@ -78,6 +84,7 @@ public abstract class Arrow : MonoBehaviour, IElementType
         }
         
         if (statusEffect == null) return;
+        statusEffect.Sender = sender;
         statusEffect.Target = target;
         statusEffects.Add(statusEffect);
     }

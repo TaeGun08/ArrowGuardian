@@ -3,49 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatManager : SingletonBase<CombatManager>
-{
+{ 
     public readonly List<IStatusEffect> statusEffectList = new List<IStatusEffect>();
     private Action statusEffectEvent;
 
     private void Update()
     {
-        if (statusEffectEvent != null) statusEffectEvent?.Invoke();
+        statusEffectEvent?.Invoke();
     }
 
-    private float CalculateFinalDamage(float baseDamage, ElementType attacker, ElementType defender)
+    private float CalculateFinalDamage(IDamageAble sender, IDamageAble target)
     {
-        float multiplier = GetElementMultiplier(attacker, defender);
-        float finalDamage = baseDamage * multiplier;
+        float multiplier = GetElementMultiplier(sender.ElementType, target.ElementType);
+        float finalDamage = sender.IRunTimeStatus.Damage * multiplier;
         return Mathf.Round(finalDamage);
     }
 
     /// <summary>
     /// 속성별 대미지 계수 반환
     /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="defender"></param>
+    /// <param name="sender"></param>
+    /// <param name="target"></param>
     /// <returns></returns>
-    private float GetElementMultiplier(ElementType attacker, ElementType defender)
+    private float GetElementMultiplier(ElementType sender, ElementType target)
     {
-        if (attacker == ElementType.None || defender == ElementType.None)
+        if (sender == ElementType.None || target == ElementType.None)
             return 1f;
 
-        if ((attacker == ElementType.Light && defender == ElementType.Dark) ||
-            (attacker == ElementType.Dark && defender == ElementType.Light))
+        if ((sender == ElementType.Light && target == ElementType.Dark) ||
+            (sender == ElementType.Dark && target == ElementType.Light))
             return 2.0f;
 
-        switch (attacker)
+        switch (sender)
         {
-            case ElementType.Flame when defender == ElementType.Wind:
-            case ElementType.Water when defender == ElementType.Flame:
-            case ElementType.Earth when defender == ElementType.Water:
-            case ElementType.Wind when defender == ElementType.Earth:
+            case ElementType.Flame when target == ElementType.Wind:
+            case ElementType.Water when target == ElementType.Flame:
+            case ElementType.Earth when target == ElementType.Water:
+            case ElementType.Wind when target == ElementType.Earth:
                 return 1.5f;
 
-            case ElementType.Flame when defender == ElementType.Water:
-            case ElementType.Water when defender == ElementType.Earth:
-            case ElementType.Earth when defender == ElementType.Wind:
-            case ElementType.Wind when defender == ElementType.Flame:
+            case ElementType.Flame when target == ElementType.Water:
+            case ElementType.Water when target == ElementType.Earth:
+            case ElementType.Earth when target == ElementType.Wind:
+            case ElementType.Wind when target == ElementType.Flame:
                 return 0.5f;
 
             default:
@@ -53,15 +53,13 @@ public class CombatManager : SingletonBase<CombatManager>
         }
     }
 
-    public void HandleDamage(IDamageAble target, float baseDamage, ElementType attackerType)
+    public void HandleDamage(IDamageAble sender, IDamageAble target, float multiplier)
     {
         if (target == null) return;
+        float finalDamage = CalculateFinalDamage(sender, target);
 
-        ElementType defenderType = target is IElementType targetElement ? targetElement.ElementType : ElementType.None;
-
-        float finalDamage = CalculateFinalDamage(baseDamage, attackerType, defenderType);
-
-        target.TakeDamage((int)finalDamage);
+        Debug.Log($"HitDamage ::: {(int)(finalDamage * multiplier)}");
+        target.TakeDamage((int)(finalDamage * multiplier));
     }
 
     public void HandleApplyStatusEffect(List<IStatusEffect> newStatusEffects)

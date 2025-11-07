@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7683227005865598508, guid: 668a05c9832efd246a133073681dde73, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -288,8 +288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b0a31b0b894b1498c2d006e7954c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ArrowGenerator>k__BackingField: {fileID: 0}
-  <EnemyGenerator>k__BackingField: {fileID: 0}
+  <ArrowGenerator>k__BackingField: {fileID: 1733994627}
+  <EnemyGenerator>k__BackingField: {fileID: 88700371}
 --- !u!4 &556152327
 Transform:
   m_ObjectHideFlags: 0
@@ -303,8 +303,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 88700372}
   - {fileID: 1733994628}
+  - {fileID: 88700372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &810389355
@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TidalArcher
       objectReference: {fileID: 0}
+    - target: {fileID: 7683227005865598508, guid: c3a8d8d6286e0004982c79ae101687be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -512,6 +516,10 @@ PrefabInstance:
     - target: {fileID: 4683827647455471966, guid: fb231ffb256ca79488e5d9c9200b3937, type: 3}
       propertyPath: m_Name
       value: EnemyNone
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683827647455471966, guid: fb231ffb256ca79488e5d9c9200b3937, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6699962301332180594, guid: fb231ffb256ca79488e5d9c9200b3937, type: 3}
       propertyPath: m_LocalPosition.x
@@ -832,6 +840,6 @@ SceneRoots:
   - {fileID: 62868751}
   - {fileID: 853569801}
   - {fileID: 361496348}
-  - {fileID: 556152327}
-  - {fileID: 1555542694}
   - {fileID: 940405192}
+  - {fileID: 1555542694}
+  - {fileID: 556152327}

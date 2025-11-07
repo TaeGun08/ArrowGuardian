@@ -2,6 +2,7 @@ using UnityEngine;
 
 public interface IStatusEffect
 {
+    public IDamageAble Sender { get; set; }
     public IDamageAble Target { get; set; }
     
     public void Apply();

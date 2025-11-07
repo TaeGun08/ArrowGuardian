@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class UnitController : MonoBehaviour
+public class UnitController : MonoBehaviour, IDamageAble, IRunTimeStatus
 {
     public enum UnitName
     {
@@ -20,10 +20,24 @@ public class UnitController : MonoBehaviour
     [SerializeField] private UnitName unitName;
     private ArrowPrefabSO arrowPrefabSo;
     private UnitData unitData = new UnitData();
+    
+    public GameObject GameObject => gameObject;
+    public Transform Transform => transform;
+    public IRunTimeStatus IRunTimeStatus => this;
+    public IMovement IMovement { get; }
+    public ElementType ElementType { get; set; }
 
+    public int Health { get; set; }
+    public int Damage { get; set; }
+    public int Armor { get; set; }
+    
     private void Awake()
     {
         unitData = UnitLoaderCSV.GetUnitByName(unitName.ToString());
+        
+        ElementType = unitData.ElementType;
+        Damage = unitData.Damage;
+        
         arrowPrefabSo = Resources.Load<ArrowPrefabSO>("ArrowPrefabSO");
     }
 
@@ -49,6 +63,11 @@ public class UnitController : MonoBehaviour
 
             Arrow arrow = Instantiate(arrowPrefabSo.GetArrow((int)unitData.ElementType), transform.position, rotation);
             arrow.SetTarget(enemy.GetComponent<IDamageAble>());
+            arrow.SetSender(this);
         }
+    }
+    
+    public void TakeDamage(int damage)
+    {
     }
 }

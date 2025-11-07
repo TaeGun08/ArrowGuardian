@@ -8,6 +8,7 @@ public class BurnEffect : IStatusEffect
     private float duration;
     private float timer;
 
+    public IDamageAble Sender { get; set; }
     public IDamageAble Target { get; set; }
 
     public void Apply()
@@ -19,19 +20,19 @@ public class BurnEffect : IStatusEffect
 
     public void UpdateStatusEffect()
     {
-        if (Target == null)
+        if (Target?.GameObject == null)
         {
             Remove();
             return;
         }
-
+        
         tickTimer += Time.deltaTime;
         timer += Time.deltaTime;
         
         if (tickDelay <= tickTimer)
         {
             Debug.Log($"{Target?.GameObject.name} ::: Burning");
-            Target?.TakeDamage(1);
+            CombatManager.Instance.HandleDamage(Sender, Target, 0.1f);
             tickTimer = 0f;
         }
 
@@ -53,7 +54,7 @@ public class BurnEffect : IStatusEffect
 
     public void Remove()
     {
-        Debug.Log($"{Target?.GameObject.name} ::: Burn End");
+        Sender = null;
         Target = null;
         CombatManager.Instance.RemoveStatusEffect(this);
     }
