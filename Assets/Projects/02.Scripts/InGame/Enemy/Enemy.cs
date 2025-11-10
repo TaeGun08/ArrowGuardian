@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovement, IRunTimeStatus
@@ -20,6 +22,8 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     public int Damage { get; set; }
     public int Armor { get; set; }
     
+    public Action OnDeath { get; set; }
+    
     protected virtual void Awake()
     {
         enemyData = EnemyLoaderCSV.GetEnemyByElementType(elementType);
@@ -31,6 +35,6 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     public virtual void TakeDamage(int damage)
     {
         Health -= damage - Armor;
-        if (Health <= 0) Destroy(gameObject);
+        if (Health <= 0) OnDeath?.Invoke();
     }
 }

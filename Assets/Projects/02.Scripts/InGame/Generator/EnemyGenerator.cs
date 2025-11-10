@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    [Header("General Settings")]
-    [SerializeField] private Vector2[] generalPos;
+    private const int INITIAL_COUNT = 10;
+    private readonly Vector2[] generalPos = new Vector2[2];
 
-    [SerializeField] private int initialCount = 10;
     private EnemyPrefabSO enemyPrefabSo;
-    
+
     private ObjectPool<Enemy> enemyNone;
     private ObjectPool<Enemy> enemyFlame;
     private ObjectPool<Enemy> enemyWater;
@@ -20,62 +20,70 @@ public class EnemyGenerator : MonoBehaviour
     private ObjectPool<Enemy> enemyDark;
     private ObjectPool<Enemy> enemyLight;
 
+    private readonly List<Enemy> enemyList = new List<Enemy>();
+
     private void Awake()
     {
         enemyPrefabSo = Resources.Load<EnemyPrefabSO>("EnemyPrefabSO");
+        
+        generalPos[0] = new Vector2(-2.5f, 5);
+        generalPos[1] = new Vector2(2.5f, 5);
     }
 
     private ObjectPool<Enemy> GetNewPoolPrefab(ElementType elementType, int initialCount, Transform transform)
     {
         return new ObjectPool<Enemy>(enemyPrefabSo.GetEnemyPrefab(elementType), initialCount, transform);
     }
-    
-    public void CreateAndGetPool(ElementType elementType)
+
+    public Enemy CreateAndGetPool(ElementType elementType)
     {
         Enemy enemy = null;
-        
+
         switch (elementType)
         {
             case ElementType.None:
-                enemyNone ??= GetNewPoolPrefab(ElementType.None, initialCount, transform);
+                enemyNone ??= GetNewPoolPrefab(ElementType.None, INITIAL_COUNT, transform);
                 enemy = enemyNone.Get();
                 break;
             case ElementType.Flame:
-                enemyFlame ??= GetNewPoolPrefab(ElementType.Flame, initialCount, transform);
+                enemyFlame ??= GetNewPoolPrefab(ElementType.Flame, INITIAL_COUNT, transform);
                 enemy = enemyFlame.Get();
                 break;
             case ElementType.Water:
-                enemyWater ??= GetNewPoolPrefab(ElementType.Water, initialCount, transform);
+                enemyWater ??= GetNewPoolPrefab(ElementType.Water, INITIAL_COUNT, transform);
                 enemy = enemyWater.Get();
                 break;
             case ElementType.Wind:
-                enemyWind ??= GetNewPoolPrefab(ElementType.Wind, initialCount, transform);
+                enemyWind ??= GetNewPoolPrefab(ElementType.Wind, INITIAL_COUNT, transform);
                 enemy = enemyWind.Get();
                 break;
             case ElementType.Earth:
-                enemyEarth ??= GetNewPoolPrefab(ElementType.Earth, initialCount, transform);
+                enemyEarth ??= GetNewPoolPrefab(ElementType.Earth, INITIAL_COUNT, transform);
                 enemy = enemyEarth.Get();
                 break;
             case ElementType.Lightning:
-                enemyLightning ??= GetNewPoolPrefab(ElementType.Lightning, initialCount, transform);
+                enemyLightning ??= GetNewPoolPrefab(ElementType.Lightning, INITIAL_COUNT, transform);
                 enemy = enemyLightning.Get();
                 break;
             case ElementType.Dark:
-                enemyDark ??= GetNewPoolPrefab(ElementType.Dark, initialCount, transform);
+                enemyDark ??= GetNewPoolPrefab(ElementType.Dark, INITIAL_COUNT, transform);
                 enemy = enemyDark.Get();
                 break;
             case ElementType.Light:
-                enemyLight ??= GetNewPoolPrefab(ElementType.Light, initialCount, transform);
+                enemyLight ??= GetNewPoolPrefab(ElementType.Light, INITIAL_COUNT, transform);
                 enemy = enemyLight.Get();
                 break;
         }
-        
-        if (enemy == null) return;
-        
-        Vector2 randomPos = new Vector2(Random.Range(generalPos[0].x, generalPos[1].x),  
+
+        if (enemy == null) return null;
+
+        Vector2 randomPos = new Vector2(Random.Range(generalPos[0].x, generalPos[1].x),
             Random.Range(generalPos[0].y, generalPos[1].y));
-        
+
         enemy.transform.position = randomPos;
+
+        enemyList.Add(enemy);
+        return enemy;
     }
 
     public void ReturnEnemy(ElementType elementType, Enemy returnEnemy)
@@ -107,22 +115,24 @@ public class EnemyGenerator : MonoBehaviour
                 enemyLight.Return(returnEnemy);
                 break;
         }
+
+        enemyList.Remove(returnEnemy);
     }
 
-    private IEnumerator GenerateEnemyCoroutine(ElementType elementType, int count, float delay)
+    public Enemy GetClosetEnemy(Vector3 position)
     {
-        WaitForSeconds wait = new WaitForSeconds(delay);
-        
-        while (count > 0)
+        float distance = float.MaxValue;
+        Enemy reValEnemy = enemyList.Count > 0 ? enemyList[0] : null;
+
+        for (int i = 0; i < enemyList.Count; i++)
         {
-            CreateAndGetPool(elementType);
-            count--;
-            yield return wait;
-        }
-    }
+            float currentDistance = Vector3.Distance(enemyList[i].transform.position, position);
 
-    public void GenerateEnemy(ElementType elementType, int count, float delay)
-    {
-        StartCoroutine(GenerateEnemyCoroutine(elementType, count, delay));
+            if (currentDistance >= distance) continue;
+            reValEnemy = enemyList[i];
+            distance = currentDistance;
+        }
+
+        return reValEnemy;
     }
 }
