@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class WaveManager : SingletonBase<WaveManager>
+public class WaveController : MonoBehaviour
 {
     private GeneratorManager generatorManager;
     private WaveDataSO waveDataSo;
@@ -12,7 +12,7 @@ public class WaveManager : SingletonBase<WaveManager>
 
     private bool isSpawningWave;
 
-    private void Start()
+    public void StartWave()
     {
         generatorManager = GeneratorManager.Instance;
         waveDataSo = Resources.Load<WaveDataSO>("WaveDataSO");
@@ -49,6 +49,9 @@ public class WaveManager : SingletonBase<WaveManager>
     private void SpawnEnemy(ElementType elementType)
     {
         var enemy = generatorManager.EnemyGenerator.CreateAndGetPool(elementType);
+
+        if (enemy == null) return;
+        
         enemiesAlive++;
 
         enemy.OnDeath += () =>

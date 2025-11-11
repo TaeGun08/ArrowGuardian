@@ -15,11 +15,41 @@ MonoBehaviour:
   waves:
   - Count: 50
     Delay: 2
-  - Count: 2
+  - Count: 50
     Delay: 2
-  - Count: 2
+  - Count: 50
     Delay: 2
-  - Count: 2
+  - Count: 50
     Delay: 2
-  - Count: 2
+  - Count: 50
     Delay: 2
+  - Count: 50
+    Delay: 2
+  - Count: 50
+    Delay: 2
+  - Count: 50
+    Delay: 2
+  - Count: 50
+    Delay: 2
+  - Count: 50
+    Delay: 1
+  - Count: 50
+    Delay: 1
+  - Count: 50
+    Delay: 1
+  - Count: 50
+    Delay: 1
+  - Count: 50
+    Delay: 0.5
+  - Count: 50
+    Delay: 0.5
+  - Count: 50
+    Delay: 0.5
+  - Count: 50
+    Delay: 0.5
+  - Count: 50
+    Delay: 0.5
+  - Count: 50
+    Delay: 0.5
+  - Count: 50
+    Delay: 0.5

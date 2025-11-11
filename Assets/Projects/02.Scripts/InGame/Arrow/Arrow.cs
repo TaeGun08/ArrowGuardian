@@ -6,6 +6,7 @@ public abstract class Arrow : MonoBehaviour, IElementType
 {
     protected Camera mainCamera;
     protected CombatManager combatManager;
+    protected GeneratorManager generatorManager;
 
     [Header("Arrow Settings")] 
     [SerializeField] protected ElementType elementType;
@@ -22,13 +23,16 @@ public abstract class Arrow : MonoBehaviour, IElementType
     {
         mainCamera = Camera.main;
         combatManager = CombatManager.Instance;
+        generatorManager =GeneratorManager.Instance;
     }
 
     protected void Update()
     {
         transform.position += transform.up * (arrowSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, target.Transform.position) > 0.1f) return;
+        Enemy targetEnemy = generatorManager.EnemyGenerator.GetClosetEnemy(transform.position);
+        
+        if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.1f) return;
         CombatManager.Instance.HandleDamage(sender, target, 1);
         InjectStatusEffect(elementType);
         

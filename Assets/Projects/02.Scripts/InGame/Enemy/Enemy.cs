@@ -27,6 +27,10 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     protected virtual void Awake()
     {
         enemyData = EnemyLoaderCSV.GetEnemyByElementType(elementType);
+    }
+
+    private void OnEnable()
+    {
         Speed = enemyData.MoveSpeed;
         Health = enemyData.MaxHealth;
         Armor = enemyData.Armor;
