@@ -10,12 +10,14 @@ public class GameManager : SingletonBase<GameManager>
         Paused,
         GameOver,
     }
-    
-    public float TotalExp { get; private set; }
+
+    public float TotalExp { get; private set; } = 5;
     public float CurrentExp { get; private set; }
 
     private WaveController waveController;
     private AbilityDraft abilityDraft;
+    public UnitStatsUI UnitStatsUI { get; set; }
+
     public Action DraftAction;
 
     private void Start()
@@ -46,10 +48,15 @@ public class GameManager : SingletonBase<GameManager>
     {
         CurrentExp += exp;
 
-        if (TotalExp > CurrentExp) return;
-        DraftAction?.Invoke();
-        float sumExp = CurrentExp - TotalExp;
-        CurrentExp = sumExp;
-        TotalExp *= 0.1f;
+        if (TotalExp <= CurrentExp)
+        {
+            DraftAction?.Invoke();
+            float sumExp = CurrentExp - TotalExp;
+            CurrentExp = sumExp;
+            TotalExp *= 0.1f;
+            SetGameState(GameState.Paused);
+        }
+        
+        UnitStatsUI.SetExpBar(CurrentExp, TotalExp);
     }
 }

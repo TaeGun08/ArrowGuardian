@@ -57,8 +57,8 @@ public class CombatManager : SingletonBase<CombatManager>
     {
         if (target == null) return;
         float finalDamage = CalculateFinalDamage(sender, target);
-
-        Debug.Log($"HitDamage ::: {(int)(finalDamage * multiplier)}");
+ 
+        Debug.Log($"Sender ::: {sender.ElementType}, Target ::: {target.ElementType}, HitDamage ::: {(int)(finalDamage * multiplier)}");
         target.TakeDamage((int)(finalDamage * multiplier));
     }
 

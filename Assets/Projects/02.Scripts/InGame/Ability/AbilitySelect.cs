@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class AbilitySelect : MonoBehaviour
 {
+    private GameManager gameManager;
+    
     private AbilityDraft abilityDraft;
     private IAbility ability;
 
@@ -23,10 +25,16 @@ public class AbilitySelect : MonoBehaviour
         });
     }
 
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
+
     private void ChoiceAbility()
     {
         abilityDraft.AddListAbility(ability);
         abilityDraft.DraftLayout.SetActive(false);
+        gameManager.SetGameState(GameManager.GameState.Playing);
     }
 
     public void SetAbilityDraft(AbilityDraft draft)

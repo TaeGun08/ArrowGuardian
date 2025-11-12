@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
+    private GameManager gameManager;
     private GeneratorManager generatorManager;
     private WaveDataSO waveDataSo;
 
@@ -14,6 +15,7 @@ public class WaveController : MonoBehaviour
 
     public void StartWave()
     {
+        gameManager = GameManager.Instance;
         generatorManager = GeneratorManager.Instance;
         waveDataSo = Resources.Load<WaveDataSO>("WaveDataSO");
         
@@ -31,7 +33,7 @@ public class WaveController : MonoBehaviour
 
             WaitForSeconds wait = new WaitForSeconds(waveData.Delay);
             
-            int randomElementIndex = currentWaveIndex == 0 ? 0 : Random.Range(0, totalWaves - 1);
+            int randomElementIndex = currentWaveIndex == 0 ? 0 : Random.Range(0, (int)ElementType.Light);
             for (int i = 0; i < waveData.Count; i++)
             {
                 SpawnEnemy(waveData.GetElementType(randomElementIndex));
@@ -39,8 +41,9 @@ public class WaveController : MonoBehaviour
             }
 
             yield return new WaitUntil(() => enemiesAlive <= 0);
-
+            
             currentWaveIndex++;
+            gameManager.UnitStatsUI.SetWaveText(currentWaveIndex.ToString());
 
             yield return new WaitForSeconds(2f);
         }
@@ -57,7 +60,11 @@ public class WaveController : MonoBehaviour
         enemy.OnDeath += () =>
         {
             enemiesAlive--;
+          
+            gameManager.SetExp(1);
             generatorManager.EnemyGenerator.ReturnEnemy(enemy.ElementType, enemy);
+
+            enemy.OnDeath = null;
         };
     }
 }
