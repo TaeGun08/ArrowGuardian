@@ -32,6 +32,7 @@ public class AbilitySelect : MonoBehaviour
 
     private void ChoiceAbility()
     {
+        Debug.Log(abilityDraft);
         abilityDraft.AddOrStackAbility(ability);
         abilityDraft.DraftLayout.SetActive(false);
         gameManager.SetGameState(GameManager.GameState.Playing);

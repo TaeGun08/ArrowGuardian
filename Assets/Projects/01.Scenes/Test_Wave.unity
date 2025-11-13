@@ -573,6 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc6edd95f6c539418c4c390c0883a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitySelects: []
   <DraftLayout>k__BackingField: {fileID: 2031992809}
 --- !u!1 &781081626
 GameObject:

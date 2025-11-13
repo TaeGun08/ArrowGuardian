@@ -18,14 +18,13 @@ public class AbilityDraft : MonoBehaviour
     private AbilitySelect[] abilitySelects;
 
     [Header("DraftLayout")]
-    [field: SerializeField]
-    public GameObject DraftLayout { get; private set; }
+    [field: SerializeField] public GameObject DraftLayout { get; private set; }
 
     private AbilityDataSO abilityDataSo;
     
     private void Awake()
     {
-        abilitySelects = GetComponentsInChildren<AbilitySelect>();
+        abilitySelects = DraftLayout.GetComponentsInChildren<AbilitySelect>();
 
         foreach (var abilitySelect in abilitySelects)
         {
@@ -48,7 +47,6 @@ public class AbilityDraft : MonoBehaviour
 
             List<IAbility> abilities = GetRandomAbilities();
 
-            Debug.Log(abilities.Count);
             for (int i = 0; i < abilitySelects.Length; i++)
             {
                 abilitySelects[i].SetAbility(abilities[i]);
@@ -58,7 +56,6 @@ public class AbilityDraft : MonoBehaviour
 
     public void AddOrStackAbility(IAbility ability)
     {
-        Debug.Log(ability.AbilityName);
         if (!abilities.TryAdd(ability.AbilityName, ability))
         {
             abilities[ability.AbilityName].StackAbility();
