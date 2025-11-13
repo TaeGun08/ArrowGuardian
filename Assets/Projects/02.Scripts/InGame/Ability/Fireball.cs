@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class Fireball : MonoBehaviour, IAbility
+public class Fireball : IAbility
 {
     public string AbilityName => "Fireball";
     public string Description => "Launches a blazing fireball that explodes on impact.";
+    public IDamageAble Target { get; }
     
-    public void Activate(IDamageAble target)
+    public void Activate()
     {
+        Debug.Log("Fireball");
     }
 
-    public void OnDuplicate(IDamageAble target)
+    public void StackAbility()
     {
     }
 }

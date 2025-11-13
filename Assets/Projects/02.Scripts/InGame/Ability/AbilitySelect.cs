@@ -32,7 +32,7 @@ public class AbilitySelect : MonoBehaviour
 
     private void ChoiceAbility()
     {
-        abilityDraft.AddListAbility(ability);
+        abilityDraft.AddOrStackAbility(ability);
         abilityDraft.DraftLayout.SetActive(false);
         gameManager.SetGameState(GameManager.GameState.Playing);
     }
@@ -42,7 +42,7 @@ public class AbilitySelect : MonoBehaviour
         abilityDraft = draft;
     }
 
-    public void SetAbility(IAbility ability)
+    public void SetAbility(IAbility ability) 
     {
         this.ability = ability;
         abilityName.text = ability.AbilityName;

@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class AttackSpeedBoost : MonoBehaviour, IAbility
+public class AttackSpeedBoost : IAbility
 {
     public string AbilityName => "AttackSpeedBoost";
     public string Description => "Increases attack speed for a short duration.";
+    public IDamageAble Target { get; }
     
-    public void Activate(IDamageAble target)
+    public void Activate()
     {
+        Debug.Log("AttackSpeedBoost");
     }
 
-    public void OnDuplicate(IDamageAble target)
+    public void StackAbility()
     {
     }
 }

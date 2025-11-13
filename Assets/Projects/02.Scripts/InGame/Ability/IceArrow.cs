@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class IceArrow : MonoBehaviour, IAbility
+public class IceArrow : IAbility
 {
-    public string AbilityName { get; }
-    public string Description { get; }
+    public string AbilityName => "IceArrow";
+    public string Description => "Fires a freezing arrow that slows enemies on hit.";
+    public IDamageAble Target { get; set; }
     
-    public void Activate(IDamageAble target)
+    public void Activate()
     {
+        Debug.Log("IceArrow");
     }
 
-    public void OnDuplicate(IDamageAble target)
+    public void StackAbility()
     {
     }
 }

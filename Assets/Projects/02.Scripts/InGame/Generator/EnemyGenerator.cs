@@ -77,8 +77,6 @@ public class EnemyGenerator : MonoBehaviour
 
         if (enemy == null) return null;
         
-        Debug.Log($"{enemy.name}");
-
         Vector2 randomPos = new Vector2(Random.Range(generalPos[0].x, generalPos[1].x),
             Random.Range(generalPos[0].y, generalPos[1].y));
 
