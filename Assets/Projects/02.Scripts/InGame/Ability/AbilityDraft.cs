@@ -27,6 +27,11 @@ public class AbilityDraft : MonoBehaviour
     {
         abilitySelects = GetComponentsInChildren<AbilitySelect>();
 
+        foreach (var abilitySelect in abilitySelects)
+        {
+            abilitySelect.SetAbilityDraft(this);
+        }
+
         abilityDataSo = Resources.Load<AbilityDataSO>("AbilityDataSO");
         
         for (int i = 0; i < abilitySelects.Length; i++)
@@ -53,6 +58,7 @@ public class AbilityDraft : MonoBehaviour
 
     public void AddOrStackAbility(IAbility ability)
     {
+        Debug.Log(ability.AbilityName);
         if (!abilities.TryAdd(ability.AbilityName, ability))
         {
             abilities[ability.AbilityName].StackAbility();
