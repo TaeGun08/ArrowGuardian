@@ -1,17 +1,22 @@
  using UnityEngine;
 
-public class AttackBoost : IAbility
+public class AttackBoost : AbilityBase
 {
-    public string AbilityName => "AttackBoost";
-    public string Description => "Increases attack power for a short duration.";
-    public IDamageAble Target { get; }
+    public override string AbilityName => "AttackBoost";
+    public override string Description => "Increases attack power by 60% for a short duration.";
     
-    public void Activate()
+    private int sumDamage;
+    
+    public override void Activate()
     {
         Debug.Log("AttackBoost");
+        sumDamage = unit.Damage + (int)(unit.UnitData.Damage * 0.6f);
+        unit.Damage += sumDamage;
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
+        Debug.Log("Stack AttackBoost");
+        unit.Damage += sumDamage;
     }
 }

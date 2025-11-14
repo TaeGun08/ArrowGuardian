@@ -13,43 +13,43 @@ MonoBehaviour:
   m_Name: WaveDataSO
   m_EditorClassIdentifier: 
   waves:
-  - Count: 50
+  - Count: 10
     Delay: 2
-  - Count: 50
+  - Count: 10
     Delay: 2
-  - Count: 50
+  - Count: 10
     Delay: 2
-  - Count: 50
-    Delay: 2
-  - Count: 50
-    Delay: 2
-  - Count: 50
-    Delay: 2
-  - Count: 50
-    Delay: 2
-  - Count: 50
-    Delay: 2
-  - Count: 50
-    Delay: 2
-  - Count: 50
+  - Count: 15
+    Delay: 1.5
+  - Count: 15
+    Delay: 1.5
+  - Count: 15
+    Delay: 1.5
+  - Count: 15
+    Delay: 1.5
+  - Count: 15
+    Delay: 1.5
+  - Count: 15
     Delay: 1
-  - Count: 50
+  - Count: 15
     Delay: 1
-  - Count: 50
+  - Count: 15
     Delay: 1
-  - Count: 50
+  - Count: 15
     Delay: 1
-  - Count: 50
+  - Count: 20
+    Delay: 1
+  - Count: 20
     Delay: 0.5
-  - Count: 50
+  - Count: 20
     Delay: 0.5
-  - Count: 50
+  - Count: 20
     Delay: 0.5
-  - Count: 50
-    Delay: 0.5
-  - Count: 50
-    Delay: 0.5
-  - Count: 50
-    Delay: 0.5
-  - Count: 50
-    Delay: 0.5
+  - Count: 25
+    Delay: 0.25
+  - Count: 25
+    Delay: 0.25
+  - Count: 25
+    Delay: 0.25
+  - Count: 25
+    Delay: 0.25

@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class AttackSpeedBoost : IAbility
+public class AttackSpeedBoost : AbilityBase
 {
-    public string AbilityName => "AttackSpeedBoost";
-    public string Description => "Increases attack speed for a short duration.";
-    public IDamageAble Target { get; }
+    public override string AbilityName => "AttackSpeedBoost";
+    public override string Description => "Increases attack speed for a short duration.";
     
-    public void Activate()
+    public override void Activate()
     {
         Debug.Log("AttackSpeedBoost");
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
     }
 }

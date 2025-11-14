@@ -14,9 +14,9 @@ public class ArmorDebuff : IStatusEffect
     {
         duration = 2f;
 
-        int armor = Target.IRunTimeStatus.Armor;
+        int armor = Target.runTimeStats.Armor;
         prevArmor = armor;
-        Target.IRunTimeStatus.Armor = (int)(armor * 0.5f);
+        Target.runTimeStats.Armor = (int)(armor * 0.5f);
         Debug.Log($"{Target?.GameObject.name} ::: Slowed");
     }
     
@@ -25,7 +25,7 @@ public class ArmorDebuff : IStatusEffect
         timer += Time.deltaTime;
 
         if (duration > timer) return;
-        Target.IRunTimeStatus.Armor = prevArmor;
+        Target.runTimeStats.Armor = prevArmor;
         Remove();
     }
 

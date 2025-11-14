@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class MultiShot : IAbility
+public class MultiShot : AbilityBase
 {
-    public string AbilityName => "MultiShot";
-    public string Description => "Fires multiple projectiles at once but slightly reduces attack power.";
-    public IDamageAble Target { get; }
+    public override string AbilityName => "MultiShot";
+    public override string Description => "Fires multiple projectiles at once but slightly reduces attack power.";
 
-    public void Activate()
+    public override void Activate()
     {
         Debug.Log("MultiShot");
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
     }
 }

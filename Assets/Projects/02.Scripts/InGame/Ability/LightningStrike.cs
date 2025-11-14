@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class LightningStrike : IAbility
+public class LightningStrike : AbilityBase
 {
-    public string AbilityName => "LightningStrike";
-    public string Description => "Summons a bolt of lightning that damages all nearby enemies.";
-    public IDamageAble Target { get; }
+    public override string AbilityName => "LightningStrike";
+    public override string Description => "Summons a bolt of lightning that damages all nearby enemies.";
 
-    public void Activate()
+    public override void Activate()
     {
         Debug.Log("LightningStrike");
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
     }
 }

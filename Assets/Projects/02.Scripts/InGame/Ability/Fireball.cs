@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class Fireball : IAbility
+public class Fireball : AbilityBase
 {
-    public string AbilityName => "Fireball";
-    public string Description => "Launches a blazing fireball that explodes on impact.";
-    public IDamageAble Target { get; }
+    public override string AbilityName => "Fireball";
+    public override string Description => "Launches a blazing fireball that explodes on impact.";
     
-    public void Activate()
+    public override void Activate()
     {
         Debug.Log("Fireball");
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
     }
 }

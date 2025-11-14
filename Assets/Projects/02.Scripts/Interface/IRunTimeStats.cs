@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IRunTimeStatus
+public interface IRunTimeStats
 {
     public int Health { get; set; }
     public int Damage { get; set; }

@@ -15,7 +15,7 @@ public class CombatManager : SingletonBase<CombatManager>
     private float CalculateFinalDamage(IDamageAble sender, IDamageAble target)
     {
         float multiplier = GetElementMultiplier(sender.ElementType, target.ElementType);
-        float finalDamage = sender.IRunTimeStatus.Damage * multiplier;
+        float finalDamage = sender.runTimeStats.Damage * multiplier;
         return Mathf.Round(finalDamage);
     }
 

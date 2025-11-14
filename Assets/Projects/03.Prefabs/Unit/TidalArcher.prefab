@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.9226117, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,6 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6092524312856390578}
+  - component: {fileID: 3114561668623360767}
   - component: {fileID: 6162885897308124016}
   m_Layer: 0
   m_Name: TidalArcher
@@ -120,6 +121,19 @@ Transform:
   - {fileID: 3674996521561148414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3114561668623360767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683227005865598508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b206bbd5e76f5dc4fa6c10eee9309a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 2
 --- !u!114 &6162885897308124016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,4 +146,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc5a2cddbbb8b94ca9cc9307d3e7245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 2

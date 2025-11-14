@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class IceArrow : IAbility
+public class IceArrow : AbilityBase
 {
-    public string AbilityName => "IceArrow";
-    public string Description => "Fires a freezing arrow that slows enemies on hit.";
-    public IDamageAble Target { get; set; }
+    public override string AbilityName => "IceArrow";
+    public override string Description => "Fires a freezing arrow that slows enemies on hit.";
     
-    public void Activate()
+    public override void Activate()
     {
         Debug.Log("IceArrow");
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
     }
 }

@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class RapidFire : IAbility
+public class RapidFire : AbilityBase
 {
-    public string AbilityName => "RapidFire";
-    public string Description => "Fires continuously in rapid succession but lowers attack power.";
-    public IDamageAble Target { get; }
+    public override string AbilityName => "RapidFire";
+    public override string Description => "Fires continuously in rapid succession but lowers attack power.";
 
-    public void Activate()
+    public override void Activate()
     {
         Debug.Log("RapidFire");
     }
 
-    public void StackAbility()
+    public override void StackAbility()
     {
     }
 }

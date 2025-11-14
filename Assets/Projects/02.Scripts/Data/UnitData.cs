@@ -10,12 +10,9 @@ public class UnitData
     public int Damage { get; set; }
     public int Range { get; set; }
     public float AttackDelay { get; set; }
-    public int Armor { get; set; }
     public float ProjectileSpeed { get; set; }
     public float CritChance { get; set; }
     public float CritDamage { get; set; }
-    public int SkillDamage { get; set; }
-    public float SkillCooldown { get; set; }
-    public float SplashRadius { get; set; }
-    public bool AppliesDebuff { get; set; }
+    public int MultiShotCount { get; set; }
+    public int RapidFireCount { get; set; }
 }

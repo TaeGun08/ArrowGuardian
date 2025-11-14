@@ -24,7 +24,7 @@ public class GameManager : SingletonBase<GameManager>
     {
         SetGameState(GameState.GameStart);
     }
-    
+
     public void SetGameState(GameState state)
     {
         switch (state)
@@ -43,7 +43,7 @@ public class GameManager : SingletonBase<GameManager>
                 break;
         }
     }
-    
+
     public void SetExp(float exp)
     {
         CurrentExp += exp;
@@ -51,12 +51,12 @@ public class GameManager : SingletonBase<GameManager>
         if (TotalExp <= CurrentExp)
         {
             DraftAction?.Invoke();
-            float sumExp = CurrentExp - TotalExp;
-            CurrentExp = sumExp;
-            TotalExp *= 0.1f;
+            float diffExp = CurrentExp - TotalExp;
+            CurrentExp = diffExp;
+            TotalExp += (TotalExp * 0.15f);
             SetGameState(GameState.Paused);
         }
-        
+
         UnitStatsUI.SetExpBar(CurrentExp, TotalExp);
     }
 }

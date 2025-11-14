@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovement, IRunTimeStatus
+public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovement, IRunTimeStats
 {
     public GameObject GameObject => gameObject;
     public Transform Transform => transform;
-    public IRunTimeStatus IRunTimeStatus => this;
+    public IRunTimeStats runTimeStats => this;
     public IMovement IMovement => this;
 
     [Header("Enemy Settings")]

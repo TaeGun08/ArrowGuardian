@@ -77,7 +77,8 @@ public class AbilityDraft : MonoBehaviour
             if (abilityIndex.Contains(randomIndex)) continue;
             
             IAbility ability = abilityDataSo.GetAbility(randomIndex);
-            Debug.Log(ability.AbilityName);
+            AbilityBase abilityBase = ability as AbilityBase;
+            abilityBase?.Init(Unit.Instance);
             result.Add(ability);
             abilityIndex.Add(randomIndex);
         }
