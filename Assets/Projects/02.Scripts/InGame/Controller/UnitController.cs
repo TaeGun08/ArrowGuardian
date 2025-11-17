@@ -28,7 +28,6 @@ public class UnitController : MonoBehaviour
 
     private void Start()
     {
-        attackDelayWait = new WaitForSeconds(unit.UnitData.AttackDelay);
         generatorManager = GeneratorManager.Instance;
         StartCoroutine(ShotArrowCoroutine());
     }
@@ -37,7 +36,7 @@ public class UnitController : MonoBehaviour
     {
         while (gameObject.activeInHierarchy)
         {
-            yield return attackDelayWait;
+            yield return new WaitForSeconds(unit.AttackDelay);
 
             Enemy targetEnemy = generatorManager.EnemyGenerator.GetClosetEnemy(transform.position);
 
@@ -51,24 +50,31 @@ public class UnitController : MonoBehaviour
 
             for (int i = 0; i < unit.UnitData.RapidFireCount; i++)
             {
-                Vector2 direction = (targetEnemy.transform.position - transform.position).normalized;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Quaternion rotation = Quaternion.Euler(0, 0, angle - 90f);
-
-                Arrow arrow = Instantiate(
-                    unit.ArrowPrefabSo.GetArrow((int)unit.UnitData.ElementType),
-                    transform.position,
-                    rotation
-                );
+                Arrow arrow = CreateArrow(targetEnemy);
 
                 if (targetEnemy.TryGetComponent(out IDamageAble damageTarget) == false) continue;
                 arrow.SetTarget(damageTarget);
                 arrow.SetSender(unit);
-
+                
                 if (i == unit.UnitData.RapidFireCount - 1) continue;
                     yield return wait;
             }
         }
+    }
+
+    private Arrow CreateArrow(Enemy enemy)
+    {
+        Vector2 direction = (enemy.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.Euler(0, 0, angle - 90f);
+
+        Arrow arrow = Instantiate(
+            unit.ArrowPrefabSo.GetArrow((int)unit.UnitData.ElementType),
+            transform.position,
+            rotation
+        );
+
+        return arrow;
     }
 
     public void TakeDamage(int damage)

@@ -7,10 +7,13 @@ public class RapidFire : AbilityBase
 
     public override void Activate()
     {
-        Debug.Log("RapidFire");
+        unit.RapidFireCount += 1;
+        Debug.Log($"RapidFire ::: {unit.RapidFireCount}");
     }
-
+ 
     public override void StackAbility()
     {
+        unit.RapidFireCount += 1;
+        Debug.Log($"RapidFire ::: {unit.RapidFireCount}");
     }
 }

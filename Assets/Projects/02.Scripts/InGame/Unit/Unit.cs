@@ -29,7 +29,8 @@ public abstract class Unit : SingletonBase<Unit>, IDamageAble, IRunTimeStats
     public int Health { get; set; }
     public int Damage { get; set; }
     public int Armor { get; set; }
-    
+
+    public float AttackDelay { get; set; }
     public int MultiShotCount { get; set; }
     public int RapidFireCount { get; set; }
     
@@ -42,6 +43,7 @@ public abstract class Unit : SingletonBase<Unit>, IDamageAble, IRunTimeStats
 
         ElementType = UnitData.ElementType;
         Damage = UnitData.Damage;
+        AttackDelay = UnitData.AttackDelay;
         MultiShotCount = UnitData.MultiShotCount;
         RapidFireCount = UnitData.RapidFireCount;
     }

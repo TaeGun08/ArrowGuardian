@@ -9,14 +9,14 @@ public class AttackBoost : AbilityBase
     
     public override void Activate()
     {
-        Debug.Log("AttackBoost");
-        sumDamage = unit.Damage + (int)(unit.UnitData.Damage * 0.6f);
+        sumDamage = (int)(unit.UnitData.Damage * 0.6f);
         unit.Damage += sumDamage;
+        Debug.Log($"AttackBoost ::: {unit.Damage}");
     }
 
     public override void StackAbility()
     {
-        Debug.Log("Stack AttackBoost");
         unit.Damage += sumDamage;
+        Debug.Log($"AttackBoost ::: {unit.Damage}");
     }
 }

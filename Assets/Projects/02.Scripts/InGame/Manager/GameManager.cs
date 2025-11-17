@@ -25,6 +25,14 @@ public class GameManager : SingletonBase<GameManager>
         SetGameState(GameState.GameStart);
     }
 
+    private void Update()
+    {
+        if (Time.timeScale == 0) return;
+        
+        if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = 3;
+        else if (Input.GetKeyUp(KeyCode.P)) Time.timeScale = 1;
+    }
+
     public void SetGameState(GameState state)
     {
         switch (state)
