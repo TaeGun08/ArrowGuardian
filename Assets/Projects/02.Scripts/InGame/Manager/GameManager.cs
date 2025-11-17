@@ -19,7 +19,7 @@ public class GameManager : SingletonBase<GameManager>
     public UnitStatsUI UnitStatsUI { get; set; }
 
     public Action DraftAction;
-
+    
     private void Start()
     {
         SetGameState(GameState.GameStart);

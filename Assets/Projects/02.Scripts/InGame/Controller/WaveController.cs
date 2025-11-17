@@ -43,7 +43,7 @@ public class WaveController : MonoBehaviour
             yield return new WaitUntil(() => enemiesAlive <= 0);
             
             currentWaveIndex++;
-            gameManager.UnitStatsUI.SetWaveText($"{currentWaveIndex + 1}");
+            gameManager.UnitStatsUI.SetWaveText($"Wave {currentWaveIndex + 1}");
 
             yield return new WaitForSeconds(2f);
         }
