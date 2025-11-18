@@ -34,7 +34,7 @@ public abstract class Arrow : MonoBehaviour, IElementType
 
         Enemy targetEnemy = generatorManager.EnemyGenerator.GetClosetEnemy(transform.position);
         
-        if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.1f) return;
+        if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.2f) return;
         CombatManager.Instance.HandleDamage(sender, target, 1);
         InjectStatusEffect(elementType);
         

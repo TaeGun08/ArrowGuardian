@@ -34,6 +34,7 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
         Speed = enemyData.MoveSpeed;
         Health = enemyData.MaxHealth;
         Armor = enemyData.Armor;
+        IsStop = false;
     }
 
     public virtual void TakeDamage(int damage)

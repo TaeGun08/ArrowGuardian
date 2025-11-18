@@ -24,7 +24,7 @@ public class DamagePopup : MonoBehaviour, IUIElement
         mainCam = Camera.main;
         rectTrs = GetComponent<RectTransform>();
         DamageText = GetComponent<TMP_Text>();
-        offset = new Vector3(0f, 0.25f, 0f);
+        offset = new Vector3(0f, 0.1f, 0f);
     }
     
     public void Show()
@@ -45,7 +45,7 @@ public class DamagePopup : MonoBehaviour, IUIElement
     {
         if (TargetTrs == null) return;
         
-        rectTrs.position += new Vector3(0f, 0.5f * Time.deltaTime, 0f);
+        rectTrs.position += new Vector3(0f, 20f * Time.deltaTime, 0f);
         
         timer += Time.deltaTime;
         if (timer >=  lifeTime)
