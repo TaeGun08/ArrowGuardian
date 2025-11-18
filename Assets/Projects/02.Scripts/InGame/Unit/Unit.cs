@@ -17,7 +17,6 @@ public abstract class Unit : SingletonBase<Unit>, IDamageAble, IRunTimeStats
     [Header("Unit Settings")]
     [SerializeField] private UnitName unitName;
     
-    public ArrowPrefabSO ArrowPrefabSo { get; private set; }
     public UnitData UnitData { get; private set; }
 
     public ElementType ElementType { get; private set;}
@@ -37,7 +36,6 @@ public abstract class Unit : SingletonBase<Unit>, IDamageAble, IRunTimeStats
     protected override void Awake()
     {
         base.Awake();
-        ArrowPrefabSo = Resources.Load<ArrowPrefabSO>("ArrowPrefabSO");
         
         UnitData = UnitLoaderCSV.GetUnitByName(unitName.ToString());
 

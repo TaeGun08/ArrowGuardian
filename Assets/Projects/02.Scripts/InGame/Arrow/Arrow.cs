@@ -19,6 +19,8 @@ public abstract class Arrow : MonoBehaviour, IElementType
     
     private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
 
+    public Action OnArrowImpact { get; set; }
+
     protected virtual void Start()
     {
         mainCamera = Camera.main;
@@ -39,7 +41,7 @@ public abstract class Arrow : MonoBehaviour, IElementType
         if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
         sender = null;
         target = null;
-        Destroy(gameObject);
+        OnArrowImpact?.Invoke();
     }
 
     protected void LateUpdate()
@@ -48,7 +50,7 @@ public abstract class Arrow : MonoBehaviour, IElementType
 
         if (screenPos.x < 0 || screenPos.x > 1 || screenPos.y < 0 || screenPos.y > 1)
         {
-            Destroy(gameObject);
+            OnArrowImpact?.Invoke();
         }
     }
 

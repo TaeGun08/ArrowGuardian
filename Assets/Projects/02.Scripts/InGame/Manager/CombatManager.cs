@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class CombatManager : SingletonBase<CombatManager>
 { 
+    private GeneratorManager generatorManager;
+    
     public readonly List<IStatusEffect> statusEffectList = new List<IStatusEffect>();
     private Action statusEffectEvent;
+
+    private void Start()
+    {
+        generatorManager = GeneratorManager.Instance;
+    }
 
     private void Update()
     {
@@ -57,9 +64,23 @@ public class CombatManager : SingletonBase<CombatManager>
     {
         if (target == null) return;
         float finalDamage = CalculateFinalDamage(sender, target);
- 
-        Debug.Log($"Sender ::: {sender.ElementType}, Target ::: {target.ElementType}, HitDamage ::: {(int)(finalDamage * multiplier)}");
-        target.TakeDamage((int)(finalDamage * multiplier));
+
+        int sumDamage = (int)(finalDamage * multiplier);
+        Debug.Log($"Sender ::: {sender.ElementType}, Target ::: {target.ElementType}, HitDamage ::: {sumDamage}");
+        
+        target.TakeDamage(sumDamage);
+        
+        var damagePopup = generatorManager.UIGenerator.CreateAndGetUI<DamagePopup>($"DamagePopup");
+        damagePopup.TargetTrs = target.Transform;
+        damagePopup.DamageText.text = $"{sumDamage}";
+        damagePopup.Show();
+        
+        damagePopup.OnUIImpact += () =>
+        {
+            damagePopup.Hide();
+            generatorManager.UIGenerator.ReturnUI<DamagePopup>($"DamagePopup", damagePopup);
+            damagePopup.OnUIImpact = null;
+        };
     }
 
     public void HandleApplyStatusEffect(List<IStatusEffect> newStatusEffects)
