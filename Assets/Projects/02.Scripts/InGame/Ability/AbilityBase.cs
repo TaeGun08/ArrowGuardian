@@ -7,10 +7,13 @@ public class AbilityBase : IAbility
     public virtual string AbilityName { get; }
     public virtual string Description { get; }
     public  IDamageAble Target { get; }
+    
+    protected SkillPrefabSO skillPrefabSo;
 
     public virtual void Init(Unit unit)
     {
         this.unit = unit;
+        skillPrefabSo = Resources.Load<SkillPrefabSO>("SkillPrefabSO");
     }
     
     public virtual void Activate()

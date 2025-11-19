@@ -68,13 +68,13 @@ public class UnitController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, angle - 90f);
 
-        Arrow arrow = generatorManager.ArrowGenerator.CreateAndGetArrow((int)unit.UnitData.ElementType);
+        Arrow arrow = generatorManager.ArrowGenerator.CreateAndGetPool<Arrow>((int)unit.UnitData.ElementType);
         arrow.transform.rotation = rotation;
         arrow.transform.position = transform.position;
 
         arrow.OnArrowImpact += () =>
         {
-            generatorManager.ArrowGenerator.ReturnArrow(arrow);
+            generatorManager.ArrowGenerator.ReturnPool<Arrow>((int)unit.UnitData.ElementType, arrow);
             arrow.OnArrowImpact = null;
         };
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IceArrow : AbilityBase
+public class IceArrowAbility : AbilityBase
 {
     public override string AbilityName => "IceArrow";
     public override string Description => "Fires a freezing arrow that slows enemies on hit.";

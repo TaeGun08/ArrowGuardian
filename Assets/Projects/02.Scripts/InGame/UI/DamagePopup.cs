@@ -2,12 +2,11 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class DamagePopup : MonoBehaviour, IUIElement
+public class DamagePopup : ActionUI
 {
     private UIController uiController;
     private Camera mainCam;
     
-    public Action OnUIImpact { get; set; }
     public Transform TargetTrs { get; set; }
     public TMP_Text DamageText { get; set; }
 
@@ -27,7 +26,7 @@ public class DamagePopup : MonoBehaviour, IUIElement
         offset = new Vector3(0f, 0.1f, 0f);
     }
     
-    public void Show()
+    public override void Show()
     {
         uiController.OnUIUpdate += UpdateUI;
         Vector2 pos =  mainCam.WorldToScreenPoint(TargetTrs.position + offset);
@@ -35,13 +34,13 @@ public class DamagePopup : MonoBehaviour, IUIElement
         rectTrs.SetAsFirstSibling();
     }
 
-    public void Hide()
+    public override void Hide()
     {
         timer = 0f;
         uiController.OnUIUpdate -= UpdateUI;
     }
 
-    public void UpdateUI()
+    public override void UpdateUI()
     {
         if (TargetTrs == null) return;
         

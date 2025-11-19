@@ -1,18 +1,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ArrowPrefabSO", menuName = "Scriptable Objects/ArrowPrefabSO")]
-public class ArrowPrefabSO : ScriptableObject
+public class ArrowPrefabSO : PrefabSoBase
 {
     [Header("Arrows Settings")] 
     [SerializeField] private Arrow[] arrows;
 
-    public Arrow GetArrow(int elementType)
+    public override T GetPrefab<T>(int index)
     {
         foreach (var arrow in arrows)
         {
-            if ((int)(arrow.ElementType) == elementType) return arrow; 
+            if ((int)(arrow.ElementType) == index) return arrow as T; 
         }
         
-        return arrows[0];
+        return arrows[0] as T;
     }
 }

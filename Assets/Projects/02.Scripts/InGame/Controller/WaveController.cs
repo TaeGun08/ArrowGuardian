@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WaveController : MonoBehaviour
 {
@@ -7,18 +9,26 @@ public class WaveController : MonoBehaviour
     private GeneratorManager generatorManager;
     private WaveDataSO waveDataSo;
 
+    private readonly Vector2[] generalPos = new Vector2[2];
+
     private int currentWaveIndex;
     private int totalWaves;
     private int enemiesAlive;
 
     private bool isSpawningWave;
 
+    private void Awake()
+    {
+        generalPos[0] = new Vector2(-2.5f, 5);
+        generalPos[1] = new Vector2(2.5f, 5);
+    }
+
     public void StartWave()
     {
         gameManager = GameManager.Instance;
         generatorManager = GeneratorManager.Instance;
         waveDataSo = Resources.Load<WaveDataSO>("WaveDataSO");
-        
+
         totalWaves = waveDataSo.GetWaveCount();
         currentWaveIndex = 0;
 
@@ -32,7 +42,7 @@ public class WaveController : MonoBehaviour
             var waveData = waveDataSo.GetWaveData(currentWaveIndex);
 
             WaitForSeconds wait = new WaitForSeconds(waveData.Delay);
-            
+
             int randomElementIndex = currentWaveIndex == 0 ? 0 : Random.Range(0, (int)ElementType.Light);
             for (int i = 0; i < waveData.Count; i++)
             {
@@ -41,7 +51,7 @@ public class WaveController : MonoBehaviour
             }
 
             yield return new WaitUntil(() => enemiesAlive <= 0);
-            
+
             currentWaveIndex++;
             gameManager.UnitStatsUI.SetWaveText($"Wave {currentWaveIndex + 1}");
 
@@ -51,20 +61,27 @@ public class WaveController : MonoBehaviour
 
     private void SpawnEnemy(ElementType elementType)
     {
-        var enemy = generatorManager.EnemyGenerator.CreateAndGetPool(elementType);
+        var enemy = generatorManager.EnemyGenerator.CreateAndGetPool<Enemy>((int)elementType);
 
         if (enemy == null) return;
-        
+
+        Vector2 randomPos = new Vector2(
+            Random.Range(generalPos[0].x, generalPos[1].x),
+            Random.Range(generalPos[0].y, generalPos[1].y));
+        enemy.transform.position = randomPos;
+
+        generatorManager.EnemyGenerator.AddEnemyList(enemy);
         enemiesAlive++;
 
         enemy.OnDeath += () =>
         {
             enemiesAlive--;
-          
-            gameManager.SetExp(1);
-            generatorManager.EnemyGenerator.ReturnEnemy(enemy.ElementType, enemy);
 
+            gameManager.SetExp(1);
+            generatorManager.EnemyGenerator.ReturnPool<Enemy>((int)enemy.ElementType, enemy);
             enemy.OnDeath = null;
+            
+            generatorManager.EnemyGenerator.RemoveEnemyList(enemy);
         };
     }
 }

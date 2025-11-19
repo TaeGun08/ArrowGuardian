@@ -1,26 +1,16 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UIPrefabSO", menuName = "Scriptable Objects/UIPrefabSO")]
-public class UIPrefabSO : ScriptableObject
+public class UIPrefabSO : PrefabSoBase
 {
-    [System.Serializable]
-    public class UIPrefab
-    {
-        public string Name;
-        public GameObject Prefab;
-    }
-    
     [Header("UI Prefab")]
-    [SerializeField] private UIPrefab[] uiPrefabs;
-
-    public GameObject GetUIPrefab(string name)
+    [SerializeField] private ActionUI[] actionUIs;
+    
+    public override T GetPrefab<T>(int index)
     {
-        for (var i = 0; i < uiPrefabs.Length; i++)
-        {
-            var uiPrefab = uiPrefabs[i];
-            if (uiPrefab.Name == name) return uiPrefab.Prefab;
-        }
-
-        return null;
+        if (index < 0 || index >= actionUIs.Length)
+            return null;
+        
+        return actionUIs[index] as T;
     }
 }

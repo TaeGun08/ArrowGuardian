@@ -70,7 +70,7 @@ public class CombatManager : SingletonBase<CombatManager>
         
         target.TakeDamage(sumDamage);
         
-        var damagePopup = generatorManager.UIGenerator.CreateAndGetUI<DamagePopup>($"DamagePopup");
+        var damagePopup = generatorManager.UIGenerator.CreateAndGetPool<DamagePopup>(0);
         damagePopup.TargetTrs = target.Transform;
         damagePopup.DamageText.text = $"{sumDamage}";
         damagePopup.Show();
@@ -78,7 +78,7 @@ public class CombatManager : SingletonBase<CombatManager>
         damagePopup.OnUIImpact += () =>
         {
             damagePopup.Hide();
-            generatorManager.UIGenerator.ReturnUI<DamagePopup>($"DamagePopup", damagePopup);
+            generatorManager.UIGenerator.ReturnPool<DamagePopup>(0, damagePopup);
             damagePopup.OnUIImpact = null;
         };
     }

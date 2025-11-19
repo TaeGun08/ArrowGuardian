@@ -7,13 +7,13 @@ public class AbilityDataSO : ScriptableObject
     {
         return abilityIndex switch
         {
-            0 => new AttackBoost(),
-            1 => new AttackSpeedBoost(),
-            2 => new Fireball(),
-            3 => new IceArrow(),
-            4 => new LightningStrike(),
-            5 => new MultiShot(),
-            6 => new RapidFire(),
+            0 => new AttackBoostAbility(),
+            1 => new AttackSpeedBoostAbility(),
+            2 => new FireballAbility(),
+            3 => new IceArrowAbility(),
+            4 => new LightningStrikeAbility(),
+            5 => new MultiShotAbility(),
+            6 => new RapidFireAbility(),
             _ => null
         };
     }

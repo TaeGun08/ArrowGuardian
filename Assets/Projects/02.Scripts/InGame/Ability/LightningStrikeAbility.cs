@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LightningStrike : AbilityBase
+public class LightningStrikeAbility : AbilityBase
 {
     public override string AbilityName => "LightningStrike";
     public override string Description => "Summons a bolt of lightning that damages all nearby enemies.";
