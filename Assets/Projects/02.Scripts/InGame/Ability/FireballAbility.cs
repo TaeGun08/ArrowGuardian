@@ -11,11 +11,11 @@ public class FireballAbility : AbilityBase
     public override void Activate()
     {
         Debug.Log("Fireball");
-        fireballs.Add(skillPrefabSo.GetPrefab<Fireball>(0));
+        fireballs.Add(skillGenerator.CreateAndGetPool<Fireball>(0));
     }
 
     public override void StackAbility()
     {
-        fireballs.Add(skillPrefabSo.GetPrefab<Fireball>(0));
+        fireballs.Add(skillGenerator.CreateAndGetPool<Fireball>(0));
     }
 }

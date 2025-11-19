@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum Ability
 {
@@ -21,7 +23,9 @@ public class AbilityDraft : MonoBehaviour
     [field: SerializeField] public GameObject DraftLayout { get; private set; }
 
     private AbilityDataSO abilityDataSo;
-    
+
+    private Action OnAbilityUpdated { get; set; }
+
     private void Awake()
     {
         abilitySelects = DraftLayout.GetComponentsInChildren<AbilitySelect>();
@@ -54,6 +58,11 @@ public class AbilityDraft : MonoBehaviour
         };
     }
 
+    private void Update()
+    {
+        OnAbilityUpdated?.Invoke();
+    }
+
     public void AddOrStackAbility(IAbility ability)
     {
         if (!abilities.TryAdd(ability.AbilityName, ability))
@@ -63,6 +72,7 @@ public class AbilityDraft : MonoBehaviour
         }
         
         abilities[ability.AbilityName].Activate();
+        OnAbilityUpdated += abilities[ability.AbilityName].UpdateAbility;
     }
     
     public List<IAbility> GetRandomAbilities(int count = 3)
@@ -78,7 +88,7 @@ public class AbilityDraft : MonoBehaviour
             
             IAbility ability = abilityDataSo.GetAbility(randomIndex);
             AbilityBase abilityBase = ability as AbilityBase;
-            abilityBase?.Init(Unit.Instance);
+            abilityBase?.Init();
             result.Add(ability);
             abilityIndex.Add(randomIndex);
         }

@@ -5,5 +5,6 @@ public interface IAbility
     public IDamageAble Target { get; }
     
     public void Activate();
+    public void UpdateAbility();
     public void StackAbility();
 }

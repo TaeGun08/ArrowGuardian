@@ -2,10 +2,10 @@ using UnityEngine;
 
 public interface ISkillAble
 {
-   float Cooldown { get; }
-   bool IsSkillActive { get; }
+    public float Cooldown { get; }
    
-   void InitSkill();
-   bool CanUseSkill();
-   void UseSkill();
+   public void InitSkill();
+   public bool CanUseSkill();
+   public void UseSkill();
+   public void UpdateSkill();
 }

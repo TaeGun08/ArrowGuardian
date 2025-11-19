@@ -3,23 +3,27 @@ using UnityEngine;
 public class AbilityBase : IAbility
 {
     protected Unit unit;
+    protected SkillGenerator skillGenerator;
     
     public virtual string AbilityName { get; }
     public virtual string Description { get; }
     public  IDamageAble Target { get; }
     
-    protected SkillPrefabSO skillPrefabSo;
 
-    public virtual void Init(Unit unit)
+    public virtual void Init()
     {
-        this.unit = unit;
-        skillPrefabSo = Resources.Load<SkillPrefabSO>("SkillPrefabSO");
+        unit = Unit.Instance;
+        skillGenerator = GeneratorManager.Instance.SkillGenerator;
     }
     
     public virtual void Activate()
     {
     }
 
+    public virtual void UpdateAbility()
+    {
+    }
+    
     public virtual void StackAbility()
     {
     }
