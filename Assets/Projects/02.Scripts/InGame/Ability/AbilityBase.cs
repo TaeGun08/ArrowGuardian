@@ -4,6 +4,7 @@ public class AbilityBase : IAbility
 {
     protected Unit unit;
     protected SkillGenerator skillGenerator;
+    protected GeneratorManager generatorManager;
     
     public virtual string AbilityName { get; }
     public virtual string Description { get; }
@@ -13,7 +14,8 @@ public class AbilityBase : IAbility
     public virtual void Init()
     {
         unit = Unit.Instance;
-        skillGenerator = GeneratorManager.Instance.SkillGenerator;
+        generatorManager = GeneratorManager.Instance;
+        skillGenerator = generatorManager.SkillGenerator;
     }
     
     public virtual void Activate()

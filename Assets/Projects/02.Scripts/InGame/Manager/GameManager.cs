@@ -31,6 +31,14 @@ public class GameManager : SingletonBase<GameManager>
         
         if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = 3;
         else if (Input.GetKeyUp(KeyCode.P)) Time.timeScale = 1;
+        
+        if (Input.GetKeyDown(KeyCode.U)) LevelUp();
+    }
+
+    private void LevelUp()
+    {
+        CurrentExp = TotalExp;
+        SetExp(1);
     }
 
     public void SetGameState(GameState state)
@@ -48,6 +56,7 @@ public class GameManager : SingletonBase<GameManager>
                 Time.timeScale = 0;
                 break;
             case GameState.GameOver:
+                SetGameState(GameState.Paused);
                 break;
         }
     }

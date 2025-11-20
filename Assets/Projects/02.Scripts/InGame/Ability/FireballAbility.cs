@@ -5,17 +5,58 @@ public class FireballAbility : AbilityBase
 {
     public override string AbilityName => "Fireball";
     public override string Description => "Launches a blazing fireball that explodes on impact.";
-    
-    private List<Fireball> fireballs = new List<Fireball>();
-    
+
+    private int fireballCount;
+
+    private float duration;
+    private float timer;
+
     public override void Activate()
     {
         Debug.Log("Fireball");
-        fireballs.Add(skillGenerator.CreateAndGetPool<Fireball>(0));
+        fireballCount++;
+        duration = 3f;
     }
 
+    public override void UpdateAbility()
+    {
+        timer += Time.deltaTime;
+
+        if (timer < duration) return;
+        timer = 0;
+        CastFireball();
+    }
+
+    private void CastFireball()
+    {
+        for (int i = 0; i < fireballCount; i++)
+        {
+            if (generatorManager.EnemyGenerator.EnemyListCheck()) continue;
+            
+            Fireball fireball = skillGenerator.CreateAndGetPool<Fireball>(0);
+            fireball.transform.position = unit.transform.position;
+            if (fireball == null) continue;
+            
+            
+            Enemy enemy = GeneratorManager.Instance.EnemyGenerator.GetClosetEnemy(fireball.transform.position);
+            Vector2 dir = (enemy.transform.position - fireball.transform.position).normalized;
+            
+            float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            
+            Quaternion rotation = Quaternion.Euler(0, 0, baseAngle - 90f);
+            fireball.transform.rotation = rotation;
+            
+            fireball.InitSkill();
+            fireball.OnSkillImpact += () =>
+            {
+                skillGenerator.ReturnPool(0, fireball);
+                fireball.OnSkillImpact = null;
+            };
+        }
+    }
+    
     public override void StackAbility()
     {
-        fireballs.Add(skillGenerator.CreateAndGetPool<Fireball>(0));
+        fireballCount++;
     }
 }

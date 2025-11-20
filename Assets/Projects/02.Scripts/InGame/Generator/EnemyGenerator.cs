@@ -42,4 +42,9 @@ public class EnemyGenerator : GeneratorBase
 
         return result;
     }
+
+    public bool EnemyListCheck()
+    {
+        return enemyList.Count <= 0;
+    } 
 }
