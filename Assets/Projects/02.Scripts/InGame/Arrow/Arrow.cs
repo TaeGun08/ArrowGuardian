@@ -7,15 +7,13 @@ public abstract class Arrow : MonoBehaviour, IElementType
     protected Camera mainCamera;
     protected CombatManager combatManager;
     protected GeneratorManager generatorManager;
+    protected Unit unit;
 
     [Header("Arrow Settings")] 
     [SerializeField] protected ElementType elementType;
 
     public ElementType ElementType => elementType;
     [SerializeField] protected float arrowSpeed = 20f;
-
-    private IDamageAble sender;
-    private IDamageAble target;
     
     private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
 
@@ -26,6 +24,7 @@ public abstract class Arrow : MonoBehaviour, IElementType
         mainCamera = Camera.main;
         combatManager = CombatManager.Instance;
         generatorManager =GeneratorManager.Instance;
+        unit = Unit.Instance;
     }
 
     protected void Update()
@@ -36,12 +35,10 @@ public abstract class Arrow : MonoBehaviour, IElementType
         
         if (targetEnemy == null) return;
         if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.2f) return;
-        CombatManager.Instance.HandleDamage(sender, target, 1);
-        InjectStatusEffect(elementType);
+        CombatManager.Instance.HandleDamage(unit, targetEnemy, 1);
+        InjectStatusEffect(elementType, unit, targetEnemy);
         
         if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
-        sender = null;
-        target = null;
         OnArrowImpact?.Invoke();
     }
 
@@ -54,18 +51,8 @@ public abstract class Arrow : MonoBehaviour, IElementType
             OnArrowImpact?.Invoke();
         }
     }
-
-    public void SetSender(IDamageAble sender)
-    {
-        this.sender = sender;
-    }
     
-    public void SetTarget(IDamageAble target)
-    {
-        this.target = target;
-    }
-    
-    protected void InjectStatusEffect(ElementType elementType)
+    protected void InjectStatusEffect(ElementType elementType, IDamageAble sender, IDamageAble target)
     {
         IStatusEffect statusEffect = null;
         switch (elementType)

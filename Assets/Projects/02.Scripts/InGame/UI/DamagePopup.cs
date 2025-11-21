@@ -31,6 +31,7 @@ public class DamagePopup : ActionUI
         uiController.OnUIUpdate += UpdateUI;
         Vector2 pos =  mainCam.WorldToScreenPoint(TargetTrs.position + offset);
         rectTrs.position = pos;
+        DamageText.color = ChangeTextColor();
         rectTrs.SetAsFirstSibling();
     }
 
@@ -38,6 +39,8 @@ public class DamagePopup : ActionUI
     {
         timer = 0f;
         uiController.OnUIUpdate -= UpdateUI;
+        Sender = null;
+        Target = null;
     }
 
     public override void UpdateUI()
@@ -51,5 +54,28 @@ public class DamagePopup : ActionUI
         {
             OnUIImpact?.Invoke();
         }
+    }
+
+    private Color ChangeTextColor()
+    {
+        switch (Sender.ElementType)
+        {
+            case ElementType.Flame:
+                return Color.red;
+            case ElementType.Water:
+                return Color.cyan;
+            case ElementType.Wind:
+                return Color.green;
+            case ElementType.Earth:
+                return new Color(115f, 63f, 43f);
+            case ElementType.Lightning:
+                return Color.yellow;
+            case ElementType.Dark:
+                return Color.clear;
+            case ElementType.Light:
+                return new Color(255f, 252f, 162f);
+        }
+        
+        return Color.white;
     }
 }

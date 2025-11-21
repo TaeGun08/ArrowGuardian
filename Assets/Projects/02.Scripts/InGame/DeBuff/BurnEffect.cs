@@ -20,7 +20,7 @@ public class BurnEffect : IStatusEffect
 
     public void UpdateStatusEffect()
     {
-        if (Target?.GameObject == null)
+        if (Target?.GameObject.activeInHierarchy == false)
         {
             Remove();
             return;

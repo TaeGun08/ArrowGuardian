@@ -43,6 +43,11 @@ public class EnemyGenerator : GeneratorBase
         return result;
     }
 
+    public List<Enemy> GetEnemyList()
+    {
+        return enemyList;
+    }
+
     public bool EnemyListCheck()
     {
         return enemyList.Count <= 0;

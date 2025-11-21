@@ -5,6 +5,10 @@ using UnityEngine;
 public interface IUIElement
 {
     public Action OnUIImpact { get; }
+
+    public IDamageAble Sender { get; }
+    public IDamageAble Target { get; }
+
     public void Show();
     public void Hide();
     public void UpdateUI(); 

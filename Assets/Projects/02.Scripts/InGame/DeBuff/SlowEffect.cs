@@ -13,7 +13,7 @@ public class SlowEffect : IStatusEffect
     public void Apply()
     {
         duration = 2f;
-
+        
         prevMoveSpeed = Target.IMovement.Speed;
         Target.IMovement.Speed *= 0.5f;
         Debug.Log($"{Target?.GameObject.name} ::: Slowed");

@@ -56,7 +56,7 @@ public class UnitController : MonoBehaviour
     
     private void FireMultiShot(Enemy targetEnemy)
     {
-        CreateArrowForTarget(targetEnemy);
+        CreateArrow(targetEnemy.transform.position);
 
         int count = unit.MultiShotCount;
         if (count <= 0) return;
@@ -73,17 +73,7 @@ public class UnitController : MonoBehaviour
             CreateArrowWithOffset(targetEnemy, offset);
         }
     }
-
     
-    private void CreateArrowForTarget(Enemy enemy)
-    {
-        Arrow arrow = CreateArrow(enemy.transform.position);
-        if (enemy.TryGetComponent(out IDamageAble damageTarget))
-        {
-            arrow.SetTarget(damageTarget);
-            arrow.SetSender(unit);
-        }
-    }
 
     private void CreateArrowWithOffset(Enemy enemy, float angleOffset)
     {
@@ -93,16 +83,10 @@ public class UnitController : MonoBehaviour
         float finalAngle = baseAngle + angleOffset;
         Quaternion rotation = Quaternion.Euler(0, 0, finalAngle - 90f);
 
-        Arrow arrow = CreateArrow(enemy.transform.position, rotation);
-
-        if (enemy.TryGetComponent(out IDamageAble damageTarget))
-        {
-            arrow.SetTarget(damageTarget);
-            arrow.SetSender(unit);
-        }
+       CreateArrow(enemy.transform.position, rotation);
     }
     
-    private Arrow CreateArrow(Vector2 targetPos, Quaternion? rotationOverride = null)
+    private void CreateArrow(Vector2 targetPos, Quaternion? rotationOverride = null)
     {
         Arrow arrow = generatorManager.ArrowGenerator
             .CreateAndGetPool<Arrow>((int)unit.UnitData.ElementType);
@@ -119,8 +103,6 @@ public class UnitController : MonoBehaviour
             generatorManager.ArrowGenerator.ReturnPool<Arrow>((int)unit.UnitData.ElementType, arrow);
             arrow.OnArrowImpact = null;
         };
-
-        return arrow;
     }
 
     public void TakeDamage(int damage)

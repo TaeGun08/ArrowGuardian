@@ -73,6 +73,7 @@ public class CombatManager : SingletonBase<CombatManager>
         var damagePopup = generatorManager.UIGenerator.CreateAndGetPool<DamagePopup>(0);
         damagePopup.TargetTrs = target.Transform;
         damagePopup.DamageText.text = $"{sumDamage}";
+        damagePopup.Sender = sender;
         damagePopup.Show();
         
         damagePopup.OnUIImpact += () =>

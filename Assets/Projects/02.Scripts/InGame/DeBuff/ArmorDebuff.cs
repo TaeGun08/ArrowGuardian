@@ -13,11 +13,9 @@ public class ArmorDebuff : IStatusEffect
     public void Apply()
     {
         duration = 2f;
-
         int armor = Target.runTimeStats.Armor;
         prevArmor = armor;
         Target.runTimeStats.Armor = (int)(armor * 0.5f);
-        Debug.Log($"{Target?.GameObject.name} ::: Slowed");
     }
     
     public void UpdateStatusEffect()
@@ -29,6 +27,12 @@ public class ArmorDebuff : IStatusEffect
         Remove();
     }
 
+    public void SetSenderAndTarget(IDamageAble sender, IDamageAble target)
+    {
+        Sender = sender;
+        Target = target;
+    }
+    
     public void ChangeDuration(float sum)
     {
         duration = sum;
