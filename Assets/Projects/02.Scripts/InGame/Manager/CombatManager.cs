@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatManager : SingletonBase<CombatManager>
+public partial class CombatManager : SingletonBase<CombatManager>
 { 
     private GeneratorManager generatorManager;
     
@@ -74,6 +74,7 @@ public class CombatManager : SingletonBase<CombatManager>
         damagePopup.TargetTrs = target.Transform;
         damagePopup.DamageText.text = $"{sumDamage}";
         damagePopup.Sender = sender;
+        damagePopup.ElementType = sender.ElementType;
         damagePopup.Show();
         
         damagePopup.OnUIImpact += () =>

@@ -4,9 +4,19 @@ using UnityEngine;
 public class Fireball : SkillBase
 {
     [SerializeField] private GameObject fireballPrefab;
+
+    public override void InitSkill()
+    {
+        base.InitSkill();
+        fireballPrefab.SetActive(false);
+    }
     
     public override void UseSkill()
     {
+        fireballPrefab.SetActive(true);
+        
+        Debug.Log(fireballPrefab.activeSelf);
+        
         skillController.OnSkillUpdated -= UpdateSkill;
         OnSkillImpact?.Invoke();
         
@@ -14,10 +24,9 @@ public class Fireball : SkillBase
         {
             Enemy targetEnemy = enemyGenerator.GetClosetEnemy(transform.position);
             
-            if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 1f) continue;
+            if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.8f) continue;
             
-            fireballPrefab.transform.localScale = Vector3.one * 1.5f;
-            CombatManager.Instance.HandleDamage(Unit.Instance, targetEnemy, 1.5f);
+            CombatManager.Instance.HandleDamage(Unit.Instance, targetEnemy, 1.5f, ElementType.Flame);
             
             List<IStatusEffect> statusEffects = new List<IStatusEffect>();
             IStatusEffect statusEffect = StatusEffectFactory.CreateStatusEffect<BurnEffect>();
@@ -44,7 +53,7 @@ public class Fireball : SkillBase
         
         if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.2f) return;
         
-        CombatManager.Instance.HandleDamage(Unit.Instance, targetEnemy, 1.5f);
+        CombatManager.Instance.HandleDamage(Unit.Instance, targetEnemy, 1f, ElementType.Flame);
 
         UseSkill();
     }

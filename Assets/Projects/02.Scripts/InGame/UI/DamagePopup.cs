@@ -17,6 +17,8 @@ public class DamagePopup : ActionUI
 
     private Vector3 offset;
     
+    public ElementType ElementType { get; set; }
+    
     private void Awake()
     {
         uiController = UIController.Instance;
@@ -58,7 +60,7 @@ public class DamagePopup : ActionUI
 
     private Color ChangeTextColor()
     {
-        switch (Sender.ElementType)
+        switch (ElementType)
         {
             case ElementType.Flame:
                 return Color.red;
