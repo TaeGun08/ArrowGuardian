@@ -19,8 +19,3 @@ public static class StatusEffectFactory
         return new T();
     }
 }
-
-public static class BuffDebuffFactory
-{
-    
-}

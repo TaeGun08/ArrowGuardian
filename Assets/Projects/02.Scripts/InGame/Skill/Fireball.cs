@@ -3,22 +3,9 @@ using UnityEngine;
 
 public class Fireball : SkillBase
 {
-    [SerializeField] private GameObject fireballPrefab;
-
-    public override void InitSkill()
-    {
-        base.InitSkill();
-        fireballPrefab.SetActive(false);
-    }
-    
     public override void UseSkill()
     {
-        fireballPrefab.SetActive(true);
-        
-        Debug.Log(fireballPrefab.activeSelf);
-        
-        skillController.OnSkillUpdated -= UpdateSkill;
-        OnSkillImpact?.Invoke();
+        effectGenerator.CreateAndGetPool<ExplosionEffect>(0).Activate();
         
         for (int i = 0; i < enemyGenerator.GetEnemyList().Count; i++)
         {
@@ -26,12 +13,13 @@ public class Fireball : SkillBase
             
             if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.8f) continue;
             
-            CombatManager.Instance.HandleDamage(Unit.Instance, targetEnemy, 1.5f, ElementType.Flame);
+            combatManager.HandleDamage(Unit.Instance, targetEnemy, 1.5f, ElementType.Flame);
             
             List<IStatusEffect> statusEffects = new List<IStatusEffect>();
             IStatusEffect statusEffect = StatusEffectFactory.CreateStatusEffect<BurnEffect>();
+            statusEffect.Target = targetEnemy;
             statusEffects.Add(statusEffect);
-            CombatManager.Instance.HandleApplyStatusEffect(statusEffects);
+            combatManager.HandleApplyStatusEffect(statusEffects);
         }
     }
 
@@ -53,8 +41,11 @@ public class Fireball : SkillBase
         
         if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.2f) return;
         
-        CombatManager.Instance.HandleDamage(Unit.Instance, targetEnemy, 1f, ElementType.Flame);
+        combatManager.HandleDamage(Unit.Instance, targetEnemy, 1f, ElementType.Flame);
 
         UseSkill();
+        
+        OnSkillImpact?.Invoke();
+        skillController.OnSkillUpdated -= UpdateSkill;
     }
 }

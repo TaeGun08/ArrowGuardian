@@ -4,6 +4,7 @@ public class GeneratorManager : SingletonBase<GeneratorManager>
     public EnemyGenerator EnemyGenerator { get; private set; }
     public UIGenerator UIGenerator { get; private set; }
     public SkillGenerator SkillGenerator { get; private set; }
+    public EffectGenerator EffectGenerator { get; private set; }
 
     protected override void Awake()
     {
@@ -12,5 +13,6 @@ public class GeneratorManager : SingletonBase<GeneratorManager>
         EnemyGenerator = ComponentExtensions.FindOrAddComponent<EnemyGenerator>();
         UIGenerator =  ComponentExtensions.FindOrAddComponent<UIGenerator>();
         SkillGenerator =  ComponentExtensions.FindOrAddComponent<SkillGenerator>();
+        EffectGenerator = ComponentExtensions.FindOrAddComponent<EffectGenerator>();
     }
 }
