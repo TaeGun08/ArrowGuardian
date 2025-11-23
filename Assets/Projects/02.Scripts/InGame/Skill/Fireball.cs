@@ -19,6 +19,7 @@ public class Fireball : SkillBase
             
             List<IStatusEffect> statusEffects = new List<IStatusEffect>();
             IStatusEffect statusEffect = StatusEffectFactory.CreateStatusEffect<BurnEffect>();
+            statusEffect.Sender = Unit.Instance;
             statusEffect.Target = targetEnemy;
             statusEffects.Add(statusEffect);
             combatManager.HandleApplyStatusEffect(statusEffects);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public partial class CombatManager : SingletonBase<CombatManager>
     
     public readonly List<IStatusEffect> statusEffectList = new List<IStatusEffect>();
     private Action statusEffectEvent;
-
+    
     private void Start()
     {
         generatorManager = GeneratorManager.Instance;
@@ -75,7 +76,6 @@ public partial class CombatManager : SingletonBase<CombatManager>
         damagePopup.DamageText.text = $"{sumDamage}";
         damagePopup.Sender = sender;
         damagePopup.ElementType = sender.ElementType;
-        damagePopup.Show();
         
         damagePopup.OnUIImpact += () =>
         {
