@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 901f5984564047a4ea42c02808eae1d7, type: 3}
-  m_Name: EffectPrefansSO
+  m_Name: EffectPrefabsSO
   m_EditorClassIdentifier: 
   effectPrefabs:
   - {fileID: -475648212180870063, guid: 28cb01701e74fd34eb62b21066ede394, type: 3}

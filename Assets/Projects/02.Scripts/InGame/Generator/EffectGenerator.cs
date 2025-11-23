@@ -4,7 +4,7 @@ public class EffectGenerator : GeneratorBase
 {
     private void Awake()
     {
-        prefabSoBase = Resources.Load<EnemyPrefabSO>("EnemyPrefabSO");
+        prefabSoBase = Resources.Load<EffectPrefabsSO>("EffectPrefabsSO");
         parentTransform = transform;
     }
 }

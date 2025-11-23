@@ -5,7 +5,9 @@ public class Fireball : SkillBase
 {
     public override void UseSkill()
     {
-        effectGenerator.CreateAndGetPool<ExplosionEffect>(0).Activate();
+        ExplosionEffect explosionEffect = effectGenerator.CreateAndGetPool<ExplosionEffect>(0);
+        explosionEffect.transform.position = transform.position;
+        explosionEffect.Activate();
         
         for (int i = 0; i < enemyGenerator.GetEnemyList().Count; i++)
         {

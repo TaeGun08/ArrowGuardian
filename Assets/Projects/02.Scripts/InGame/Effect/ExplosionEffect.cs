@@ -16,13 +16,13 @@ public class ExplosionEffect : EffectBase
     private void LateUpdate()
     {
         timer += Time.deltaTime;
-        if (timer >= 1.5f) return;
+        if (timer < 1f) return;
         timer = 0f;
         Deactivate();
     }
 
     public override void Deactivate()
     {
-        gameObject.SetActive(false);
+        effectGenerator.ReturnPool(0, this);
     }
 }
