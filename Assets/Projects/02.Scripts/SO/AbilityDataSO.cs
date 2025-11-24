@@ -11,7 +11,7 @@ public class AbilityDataSO : ScriptableObject
             1 => new AttackSpeedBoostAbility(),
             2 => new FireballAbility(),
             3 => new IceArrowAbility(),
-            4 => new LightningStrikeAbility(),
+            4 => new ChainLightningAbility(),
             5 => new MultiShotAbility(),
             6 => new RapidFireAbility(),
             _ => null
