@@ -30,7 +30,7 @@ public class Lightning : EffectBase
     public override void Activate()
     {
         gameObject.SetActive(true);
-
+        
         lineRenderer.positionCount = segmentCount + 2;
 
         for (int i = 0; i <= segmentCount + 1; i++)
@@ -55,6 +55,7 @@ public class Lightning : EffectBase
         timer += Time.deltaTime;
         if (timer <= 0.2f) return;
         Deactivate();
+        timer = 0f;
     }
 
     public override void Deactivate()
