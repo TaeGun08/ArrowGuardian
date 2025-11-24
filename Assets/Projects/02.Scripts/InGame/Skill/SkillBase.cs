@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class SkillBase : MonoBehaviour, ISkillAble
@@ -25,4 +26,14 @@ public abstract class SkillBase : MonoBehaviour, ISkillAble
     public abstract void UseSkill();
 
     public abstract void UpdateSkill();
+    
+    protected void Debuff<T>(Enemy targetEnemy) where T : IStatusEffect, new()
+    {
+        List<IStatusEffect> statusEffects = new List<IStatusEffect>();
+        IStatusEffect statusEffect = StatusEffectFactory.CreateStatusEffect<T>();
+        statusEffect.Sender = Unit.Instance;
+        statusEffect.Target = targetEnemy;
+        statusEffects.Add(statusEffect);
+        combatManager.HandleApplyStatusEffect(statusEffects);
+    }
 }

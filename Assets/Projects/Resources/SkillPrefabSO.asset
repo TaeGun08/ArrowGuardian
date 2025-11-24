@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPrefabs:
   - {fileID: -6559823217351224595, guid: 412a19fb3a1d6754f9af7e3e4b00c04b, type: 3}
+  - {fileID: 6149599045524527674, guid: cb44644a0400dea4cbef91e76914b4ba, type: 3}
   - {fileID: 3233778029209573859, guid: 6be69dba20d37eb40ab9340b48c1fd29, type: 3}

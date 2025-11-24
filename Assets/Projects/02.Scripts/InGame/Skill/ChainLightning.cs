@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Lightning : SkillBase
+public class ChainLightning : SkillBase
 {
     public override void UseSkill()
     {

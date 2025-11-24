@@ -29,30 +29,27 @@ public class FireballAbility : AbilityBase
 
     private void CastFireball()
     {
-        for (int i = 0; i < fireballCount; i++)
+        if (generatorManager.EnemyGenerator.EnemyListCheck()) return;
+            
+        Fireball fireball = skillGenerator.CreateAndGetPool<Fireball>(0);
+        fireball.transform.position = unit.transform.position;
+        if (fireball == null) return;
+            
+        Enemy enemy = GeneratorManager.Instance.EnemyGenerator.GetClosetEnemy(fireball.transform.position);
+        Vector2 dir = (enemy.transform.position - fireball.transform.position).normalized;
+            
+        float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            
+        Quaternion rotation = Quaternion.Euler(0, 0, baseAngle - 90f);
+        fireball.transform.rotation = rotation;
+            
+        fireball.InitSkill();
+        fireball.FireballCount = fireballCount;
+        fireball.OnSkillImpact += () =>
         {
-            if (generatorManager.EnemyGenerator.EnemyListCheck()) continue;
-            
-            Fireball fireball = skillGenerator.CreateAndGetPool<Fireball>(0);
-            fireball.transform.position = unit.transform.position;
-            if (fireball == null) continue;
-            
-            
-            Enemy enemy = GeneratorManager.Instance.EnemyGenerator.GetClosetEnemy(fireball.transform.position);
-            Vector2 dir = (enemy.transform.position - fireball.transform.position).normalized;
-            
-            float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            
-            Quaternion rotation = Quaternion.Euler(0, 0, baseAngle - 90f);
-            fireball.transform.rotation = rotation;
-            
-            fireball.InitSkill();
-            fireball.OnSkillImpact += () =>
-            {
-                skillGenerator.ReturnPool(0, fireball);
-                fireball.OnSkillImpact = null;
-            };
-        }
+            skillGenerator.ReturnPool(0, fireball);
+            fireball.OnSkillImpact = null;
+        };
     }
     
     public override void StackAbility()

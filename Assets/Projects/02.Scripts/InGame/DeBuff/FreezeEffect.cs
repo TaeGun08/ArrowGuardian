@@ -1,21 +1,25 @@
 using UnityEngine;
 
-public class BurnEffect : IStatusEffect
+public class FreezeEffect : IStatusEffect
 {
-    private float tickTimer;
-    private float tickDelay;
-
+    public IDamageAble Sender { get; set; }
+    public IDamageAble Target { get; set; }
+    
     private float duration;
     private float timer;
 
-    public IDamageAble Sender { get; set; }
-    public IDamageAble Target { get; set; }
-
+    private Freeze freeze;
+    
     public void Apply()
     {
-        tickTimer = 0f;
-        tickDelay = 0.5f;
         duration = 2f;
+        Enemy enemy = Target as Enemy;
+        if (enemy == null) return;
+        enemy.IMovement.IsStop = true;
+        
+        freeze = GeneratorManager.Instance.EffectGenerator.CreateAndGetPool<Freeze>(1);
+        freeze.Target = Target;
+        freeze.Activate();
     }
 
     public void UpdateStatusEffect()
@@ -26,15 +30,8 @@ public class BurnEffect : IStatusEffect
             return;
         }
         
-        tickTimer += Time.deltaTime;
         timer += Time.deltaTime;
         
-        if (tickDelay <= tickTimer)
-        {
-            CombatManager.Instance.HandleDamage(Sender, Target, 0.1f, ElementType.Flame);
-            tickTimer = 0f;
-        }
-
         if (duration <= timer)
         {
             Remove();
@@ -43,7 +40,6 @@ public class BurnEffect : IStatusEffect
 
     public void ChangeDuration(float sum)
     {
-        duration = sum;
     }
 
     public void Refresh()
@@ -53,8 +49,17 @@ public class BurnEffect : IStatusEffect
 
     public void Remove()
     {
+        Enemy enemy = Target as Enemy;
+        if (enemy != null)
+        {
+            enemy.IMovement.IsStop = false;
+        }
+        
         Sender = null;
         Target = null;
+        
+        freeze.Deactivate();
+        
         CombatManager.Instance.RemoveStatusEffect(this);
     }
 }

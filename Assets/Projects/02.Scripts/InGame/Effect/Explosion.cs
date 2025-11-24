@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ExplosionEffect : EffectBase
+public class Explosion : EffectBase
 {
     public override int Id => 0;
 

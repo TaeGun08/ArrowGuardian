@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public partial class CombatManager : SingletonBase<CombatManager>
 { 
@@ -72,10 +73,16 @@ public partial class CombatManager : SingletonBase<CombatManager>
         target.TakeDamage(sumDamage);
         
         var damagePopup = generatorManager.UIGenerator.CreateAndGetPool<DamagePopup>(0);
+        
+        
+        Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0.1f, 0.2f), 0f);
+        damagePopup.Offset = offset;
+
         damagePopup.TargetTrs = target.Transform;
         damagePopup.DamageText.text = $"{sumDamage}";
         damagePopup.Sender = sender;
         damagePopup.ElementType = sender.ElementType;
+        damagePopup.Show();
         
         damagePopup.OnUIImpact += () =>
         {

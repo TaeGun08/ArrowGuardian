@@ -9,13 +9,12 @@ public class DamagePopup : ActionUI
     
     public Transform TargetTrs { get; set; }
     public TMP_Text DamageText { get; set; }
+    public Vector3 Offset { get; set; }
 
     private RectTransform rectTrs;
 
     private float lifeTime = 2f;
     private float timer;
-
-    private Vector3 offset;
     
     public ElementType ElementType { get; set; }
     
@@ -25,13 +24,12 @@ public class DamagePopup : ActionUI
         mainCam = Camera.main;
         rectTrs = GetComponent<RectTransform>();
         DamageText = GetComponent<TMP_Text>();
-        offset = new Vector3(0f, 0.1f, 0f);
     }
     
     public override void Show()
     {
         uiController.OnUIUpdate += UpdateUI;
-        Vector2 pos =  mainCam.WorldToScreenPoint(TargetTrs.position + offset);
+        Vector2 pos =  mainCam.WorldToScreenPoint(TargetTrs.position + Offset);
         rectTrs.position = pos;
         DamageText.color = ChangeTextColor();
         rectTrs.SetAsFirstSibling();
