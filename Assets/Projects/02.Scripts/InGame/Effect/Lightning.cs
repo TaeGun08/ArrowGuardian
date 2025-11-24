@@ -1,14 +1,19 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Lightning : EffectBase
 {
     public override int Id => 2;
 
-    public IDamageAble Target { get; set; }
-    
     private LineRenderer lineRenderer;
-    private int chainCount = 8;
+    private int segmentCount = 8;
     private float offset = 0.3f;
+
+    private Vector3 startPos;
+    private Vector3 endPos;
+
+    private float timer;
 
     protected override void Awake()
     {
@@ -16,30 +21,44 @@ public class Lightning : EffectBase
         lineRenderer = GetComponent<LineRenderer>();
     }
 
+    public void Setup(Vector3 start, Vector3 end)
+    {
+        startPos = start;
+        endPos = end;
+    }
+
     public override void Activate()
     {
         gameObject.SetActive(true);
-        
-        transform.position = Target.Transform.position;
-        
-        lineRenderer.positionCount = chainCount + 2;
 
-        for (int i = 0; i <= chainCount + 1; i++)
+        lineRenderer.positionCount = segmentCount + 2;
+
+        for (int i = 0; i <= segmentCount + 1; i++)
         {
-            float t = (float)i / (chainCount + 1);
+            float t = (float)i / (segmentCount + 1);
 
-            Vector3 pos = Vector3.Lerp(transform.position, Target.Transform.position, t);
+            Vector3 pos = Vector3.Lerp(startPos, endPos, t);
 
-            pos.x += Random.Range(-offset, offset);
-            pos.y += Random.Range(-offset, offset);
+            if (i != 0 && i != segmentCount + 1)
+            {
+                Vector2 random = Random.insideUnitCircle * offset;
+                pos.x += random.x;
+                pos.y += random.y;
+            }
 
             lineRenderer.SetPosition(i, pos);
         }
     }
 
+    private void LateUpdate()
+    {
+        timer += Time.deltaTime;
+        if (timer <= 0.2f) return;
+        Deactivate();
+    }
+
     public override void Deactivate()
     {
-        Target = null;
-        effectGenerator.ReturnPool(2, this);
+        effectGenerator.ReturnPool(Id, this);
     }
 }

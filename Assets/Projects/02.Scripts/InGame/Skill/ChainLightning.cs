@@ -11,13 +11,13 @@ public class ChainLightning : SkillBase
     {
         hitEnemies.Clear();
     }
-
+    
     public override void UseSkill()
     {
         ExecuteChainLightning();
         OnSkillImpact?.Invoke();
     }
-    
+
     private void ExecuteChainLightning()
     {
         Vector3 currentPos = transform.position;
@@ -25,15 +25,13 @@ public class ChainLightning : SkillBase
         for (int i = 0; i < ChainCount; i++)
         {
             Enemy target = enemyGenerator.GetClosetEnemy(currentPos, hitEnemies);
-
             if (target == null) break;
 
-            float dist = Vector2.Distance(currentPos, target.Transform.position);
-            if (dist > 0.5f) break;
+            float distance = Vector2.Distance(currentPos, target.Transform.position);
+            if (distance > 3f) break;
 
             HitEnemy(target);
-
-            CreateLightningEffect(target);
+            CreateLightningEffect(currentPos, target.Transform.position);
 
             currentPos = target.Transform.position;
         }
@@ -41,17 +39,17 @@ public class ChainLightning : SkillBase
 
     private void HitEnemy(Enemy target)
     {
-        combatManager.HandleDamage(Unit.Instance, target, 1f, ElementType.Water);
+        combatManager.HandleDamage(Unit.Instance, target, 0.8f, ElementType.Lightning);
         hitEnemies.Add(target);
     }
 
-    private void CreateLightningEffect(Enemy target)
+    private void CreateLightningEffect(Vector3 start, Vector3 end)
     {
         Lightning lightning = effectGenerator.CreateAndGetPool<Lightning>(2);
-        lightning.Target = target;
+        lightning.Setup(start, end);
         lightning.Activate();
     }
-
+    
     public override void UpdateSkill()
     {
         transform.position += transform.up * (20f * Time.deltaTime);
@@ -75,8 +73,8 @@ public class ChainLightning : SkillBase
 
     private bool IsOutsideViewport(Vector3 pos)
     {
-        Vector3 screenPos = mainCamera.WorldToViewportPoint(pos);
-        return screenPos.x < 0 || screenPos.x > 1 || screenPos.y < 0 || screenPos.y > 1;
+        Vector3 s = mainCamera.WorldToViewportPoint(pos);
+        return s.x < 0 || s.x > 1 || s.y < 0 || s.y > 1;
     }
 
     private void FinishSkill()

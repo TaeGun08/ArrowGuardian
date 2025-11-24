@@ -46,6 +46,7 @@ public class ChainLightningAbility : AbilityBase
         chainLightning.ChainCount = chainCount;
         chainLightning.OnSkillImpact += () =>
         {
+            chainLightning.ChainCount = 0;
             skillGenerator.ReturnPool(0, chainLightning);
             chainLightning.OnSkillImpact = null;
         };
