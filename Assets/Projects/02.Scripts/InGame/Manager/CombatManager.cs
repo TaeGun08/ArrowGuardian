@@ -79,7 +79,7 @@ public partial class CombatManager : SingletonBase<CombatManager>
         damagePopup.Offset = offset;
 
         damagePopup.TargetTrs = target.Transform;
-        damagePopup.DamageText.text = $"{sumDamage}";
+        damagePopup.DamageText.text = $"{sumDamage - target.runTimeStats.Armor}";
         damagePopup.Sender = sender;
         damagePopup.ElementType = sender.ElementType;
         damagePopup.Show();

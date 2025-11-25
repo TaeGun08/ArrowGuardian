@@ -21,7 +21,7 @@ public partial class CombatManager : SingletonBase<CombatManager>
         
         var damagePopup = generatorManager.UIGenerator.CreateAndGetPool<DamagePopup>(0);
         damagePopup.TargetTrs = target.Transform;
-        damagePopup.DamageText.text = $"{sumDamage}";
+        damagePopup.DamageText.text = $"{sumDamage - target.runTimeStats.Armor}";
         damagePopup.Sender = sender;
         damagePopup.ElementType = elementType;
         damagePopup.Show();

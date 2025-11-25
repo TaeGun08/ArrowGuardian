@@ -3,25 +3,17 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
+    private static readonly int Fire = Animator.StringToHash("Fire");
     private Unit unit;
-
-    public enum UnitName
-    {
-        ApprenticeArcher,
-        EmberArcher,
-        TidalArcher,
-        GaleArcher,
-        StoneArcher,
-        StormArcher,
-        ShadowArcher,
-        RadiantArcher,
-    }
-
+    
     private GeneratorManager generatorManager;
+    
+    private Animator animator;
 
     private void Awake()
     {
         unit = GetComponent<Unit>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -46,6 +38,7 @@ public class UnitController : MonoBehaviour
 
             for (int i = 0; i < unit.RapidFireCount; i++)
             {
+                animator.SetTrigger(Fire);
                 FireMultiShot(targetEnemy);
 
                 if (i < unit.RapidFireCount - 1)

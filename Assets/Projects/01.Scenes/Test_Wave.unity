@@ -2144,10 +2144,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ApprenticeArcher
       objectReference: {fileID: 0}
-    - target: {fileID: 7683227005865598508, guid: d35a786abe37d0943aecbdfb685b43c1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

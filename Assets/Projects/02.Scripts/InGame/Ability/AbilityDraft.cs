@@ -82,7 +82,7 @@ public class AbilityDraft : MonoBehaviour
 
         while (result.Count < count)
         {
-            int randomIndex = Random.Range(0, (int)Ability.RapidFire);
+            int randomIndex = Random.Range(0, (int)Ability.RapidFire + 1);
 
             if (abilityIndex.Contains(randomIndex)) continue;
             
