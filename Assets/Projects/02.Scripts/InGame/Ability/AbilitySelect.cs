@@ -14,6 +14,7 @@ public class AbilitySelect : MonoBehaviour
     [Header("Ability Settings")]
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private TMP_Text description;
+    [SerializeField] private Image icon;
 
     private void Awake()
     {

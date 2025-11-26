@@ -12,3 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207d8c13affdac2428cb2f9738724393, type: 3}
   m_Name: AbilityDataSO
   m_EditorClassIdentifier: 
+  abilityIcon:
+  - Id: 0
+    Icon: {fileID: 0}
+  - Id: 1
+    Icon: {fileID: 0}
+  - Id: 2
+    Icon: {fileID: 0}
+  - Id: 3
+    Icon: {fileID: 0}
+  - Id: 4
+    Icon: {fileID: 0}
+  - Id: 5
+    Icon: {fileID: 0}
+  - Id: 6
+    Icon: {fileID: 0}

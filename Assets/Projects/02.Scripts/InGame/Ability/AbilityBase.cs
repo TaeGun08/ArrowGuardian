@@ -8,6 +8,8 @@ public class AbilityBase : IAbility
     
     public virtual string AbilityName { get; }
     public virtual string Description { get; }
+    public Sprite Icon { get; set; }
+    
     public  IDamageAble Target { get; }
     
 

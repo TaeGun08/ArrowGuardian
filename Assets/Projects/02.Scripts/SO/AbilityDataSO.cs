@@ -3,6 +3,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AbilityDataSO", menuName = "Scriptable Objects/AbilityDataSO")]
 public class AbilityDataSO : ScriptableObject
 {
+    [System.Serializable]
+    public class AbilityIcon
+    {
+        public int Id;
+        public Sprite Icon;
+    }
+    
+    [Header("Ability Icons")]
+    [SerializeField] private AbilityIcon[] abilityIcon;
+    
     public IAbility GetAbility(int abilityIndex)
     {
         return abilityIndex switch
