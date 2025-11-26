@@ -11,6 +11,8 @@ public class AbilitySelect : MonoBehaviour
 
     private Button button;
     
+    private AbilityDataSO abilityDataSo;
+    
     [Header("Ability Settings")]
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private TMP_Text description;
@@ -19,6 +21,8 @@ public class AbilitySelect : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
+     
+        abilityDataSo = Resources.Load<AbilityDataSO>("AbilityDataSO");
         
         button.onClick.AddListener(() =>
         {
@@ -48,5 +52,6 @@ public class AbilitySelect : MonoBehaviour
         this.ability = ability;
         abilityName.text = ability.AbilityName;
         description.text = ability.Description;
+        icon.sprite = abilityDataSo.GetIconSprite(ability.Id);
     }
 }

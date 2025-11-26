@@ -63,7 +63,6 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
                 animator.SetTrigger(Idle);
                 break;
             case AnimState.Walking:
-                Debug.Log(animator);
                 animator.SetTrigger(Walk);
                 break;
         }

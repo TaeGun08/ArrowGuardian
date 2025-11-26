@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AttackSpeedBoostAbility : AbilityBase
 {
+    public override int Id => 1;
     public override string AbilityName => "AttackSpeedBoost";
     public override string Description => "Increases attack speed for a short duration.";
 

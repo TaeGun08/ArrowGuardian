@@ -12,6 +12,11 @@ public class AbilityDataSO : ScriptableObject
     
     [Header("Ability Icons")]
     [SerializeField] private AbilityIcon[] abilityIcon;
+
+    public Sprite GetIconSprite(int abilityIndex)
+    {
+        return abilityIcon[abilityIndex]?.Icon;
+    }
     
     public IAbility GetAbility(int abilityIndex)
     {

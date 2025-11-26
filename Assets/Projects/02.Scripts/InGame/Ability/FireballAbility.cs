@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FireballAbility : AbilityBase
 {
+    public override int Id => 2;
     public override string AbilityName => "Fireball";
     public override string Description => "Launches a blazing fireball that explodes on impact.";
 

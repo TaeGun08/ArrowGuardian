@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityIcon:
   - Id: 0
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 530bcabb1501d8148a19a77465ecac03, type: 3}
   - Id: 1
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 8d95bcf261f259f4786a397bc66e3705, type: 3}
   - Id: 2
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 04841b8a9cae96b42aa2a2689b689515, type: 3}
   - Id: 3
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 806f0f2ed8739e647be3316342077d44, type: 3}
   - Id: 4
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 99d42591f717a4046871bf94360362ad, type: 3}
   - Id: 5
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: b123bdad4f47a734c80135e456f2d162, type: 3}
   - Id: 6
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 313eb4d0157f6ec418d857892d7b44ad, type: 3}

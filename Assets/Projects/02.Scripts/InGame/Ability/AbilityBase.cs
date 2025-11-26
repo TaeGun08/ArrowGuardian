@@ -5,10 +5,10 @@ public class AbilityBase : IAbility
     protected Unit unit;
     protected SkillGenerator skillGenerator;
     protected GeneratorManager generatorManager;
-    
+
+    public virtual int Id { get; set; }
     public virtual string AbilityName { get; }
     public virtual string Description { get; }
-    public Sprite Icon { get; set; }
     
     public  IDamageAble Target { get; }
     

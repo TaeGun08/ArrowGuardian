@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class IceArrowAbility : AbilityBase
 {
+    public override int Id => 3;
     public override string AbilityName => "IceArrow";
     public override string Description => "Fires a freezing arrow that slows enemies on hit.";
     

@@ -2,6 +2,7 @@
 
 public class AttackBoostAbility : AbilityBase
 {
+    public override int Id => 0;
     public override string AbilityName => "AttackBoost";
     public override string Description => "Increases attack power by 60% for a short duration.";
     

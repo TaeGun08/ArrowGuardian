@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ChainLightningAbility : AbilityBase
 {
+    public override int Id => 4;
     public override string AbilityName => "ChainLightning";
     public override string Description => "Summons a bolt of lightning that damages all nearby enemies.";
 
