@@ -4,6 +4,13 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     private IMovement movement;
+    
+    private AnimationController animationController;
+
+    private void Awake()
+    {
+        animationController = GetComponent<AnimationController>();
+    }
 
     private void Start()
     {
@@ -13,11 +20,14 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         if (movement.IsStop) return;
+        if (movement.IsStunned) return;
         
         transform.Translate(Vector3.down * (movement.Speed * Time.deltaTime), Space.World);
 
         float distance = Vector2.Distance(transform.position, new Vector2(transform.position.x, -3f));
         
-        if (distance < 0.1f) movement.IsStop = true;
+        if (distance >= 0.1f) return;
+        animationController.ChangeAnimation(AnimationController.AnimState.Idle);
+        movement.IsStop = true;
     }
 }

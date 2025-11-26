@@ -7,6 +7,7 @@ public class UnitStatsUI : MonoBehaviour
     [Header("Settings")] 
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private Slider expBar;
+    [SerializeField] private TMP_Text healthText;
 
     private void Start()
     {
@@ -21,5 +22,10 @@ public class UnitStatsUI : MonoBehaviour
     public void SetExpBar(float value, float total)
     {
         expBar.value = value / total;
+    }
+
+    public void SetHealthText(string text)
+    {
+        healthText.text = text;
     }
 }

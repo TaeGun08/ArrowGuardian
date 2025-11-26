@@ -16,6 +16,7 @@ public class MenuButton : MonoBehaviour
         
         button.onClick.AddListener(() =>
         {
+            menu.gameObject.SetActive(true);
             gameManager.SetGameState(GameManager.GameState.Paused);
         });
     }

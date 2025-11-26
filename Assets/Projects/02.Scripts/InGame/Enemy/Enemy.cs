@@ -4,15 +4,6 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovement, IRunTimeStats
 {
-    private static readonly int Idle = Animator.StringToHash("Idle");
-    private static readonly int Walk = Animator.StringToHash("Walk");
-
-    public enum AnimState
-    {
-        Idle,
-        Walking,
-    }
-    
     public GameObject GameObject => gameObject;
     public Transform Transform => transform;
     public IRunTimeStats runTimeStats => this;
@@ -25,6 +16,7 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     protected EnemyData enemyData = new EnemyData();
     
     public bool IsStop { get; set; }
+    public bool IsStunned { get; set; }
     public float Speed { get; set; }
     public int Health { get; set; }
     public int Damage { get; set; }
@@ -32,12 +24,9 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     
     public Action OnDeath { get; set; }
     
-    protected Animator animator;
-    
     protected virtual void Awake()
     {
         enemyData = EnemyLoaderCSV.GetEnemyByElementType(elementType);
-        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -46,25 +35,12 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
         Health = enemyData.MaxHealth;
         Armor = enemyData.Armor;
         IsStop = false;
-        ChangeAnimation(AnimState.Walking);
+        IsStunned = false;
     }
 
     public virtual void TakeDamage(int damage)
     {
         Health -= damage - Armor;
         if (Health <= 0) OnDeath?.Invoke();
-    }
-
-    public void ChangeAnimation(AnimState state)
-    {
-        switch (state)
-        {
-            case AnimState.Idle:
-                animator.SetTrigger(Idle);
-                break;
-            case AnimState.Walking:
-                animator.SetTrigger(Walk);
-                break;
-        }
     }
 }

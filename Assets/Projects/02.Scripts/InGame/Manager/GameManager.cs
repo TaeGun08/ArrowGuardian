@@ -14,6 +14,9 @@ public class GameManager : SingletonBase<GameManager>
     public float TotalExp { get; private set; } = 5;
     public float CurrentExp { get; private set; }
 
+    private float totalHealth = 2000f;
+    private float health;
+
     private WaveController waveController;
     private AbilityDraft abilityDraft;
     public UnitStatsUI UnitStatsUI { get; set; }
@@ -22,6 +25,7 @@ public class GameManager : SingletonBase<GameManager>
     
     private void Start()
     {
+        health = totalHealth;
         SetGameState(GameState.GameStart);
     }
 
@@ -75,5 +79,17 @@ public class GameManager : SingletonBase<GameManager>
         }
 
         UnitStatsUI.SetExpBar(CurrentExp, TotalExp);
+    }
+
+    public void SetHealth(float hp)
+    {
+        health += hp;
+
+        if (health <= 0)
+        {
+            SetGameState(GameState.GameOver);
+        }
+        
+        UnitStatsUI.SetHealthText($"{health}");
     }
 }

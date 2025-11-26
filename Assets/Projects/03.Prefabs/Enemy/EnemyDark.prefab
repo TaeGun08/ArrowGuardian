@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4177799562613452639}
   - component: {fileID: 7353435493516577942}
   - component: {fileID: -4507543589642163430}
+  - component: {fileID: -1001872972461184573}
   m_Layer: 6
   m_Name: EnemyDark
   m_TagString: Enemy
@@ -106,6 +107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d297d09024a82f4d8f223fd876f0176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1001872972461184573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857426570920175151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6096960bb13814b86b88558cfc21e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 1
 --- !u!1 &2256300883936972042
 GameObject:
   m_ObjectHideFlags: 0

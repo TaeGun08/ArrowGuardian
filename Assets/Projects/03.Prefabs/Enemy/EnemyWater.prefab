@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1806043196021125725}
   - component: {fileID: 7482298663706524416}
   - component: {fileID: -1150778533939032418}
+  - component: {fileID: -8167993695370342252}
   m_Layer: 6
   m_Name: EnemyWater
   m_TagString: Enemy
@@ -106,6 +107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d297d09024a82f4d8f223fd876f0176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8167993695370342252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350880063431520312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6096960bb13814b86b88558cfc21e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 1
 --- !u!1 &4681222486374181833
 GameObject:
   m_ObjectHideFlags: 0

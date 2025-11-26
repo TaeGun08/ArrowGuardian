@@ -15,7 +15,7 @@ public class FreezeEffect : IStatusEffect
         duration = 2f;
         Enemy enemy = Target as Enemy;
         if (enemy == null) return;
-        enemy.IMovement.IsStop = true;
+        enemy.IMovement.IsStunned = true;
         
         freeze = GeneratorManager.Instance.EffectGenerator.CreateAndGetPool<Freeze>(1);
         freeze.Target = Target;
@@ -52,7 +52,7 @@ public class FreezeEffect : IStatusEffect
         Enemy enemy = Target as Enemy;
         if (enemy != null)
         {
-            enemy.IMovement.IsStop = false;
+            enemy.IMovement.IsStunned = false;
         }
         
         Sender = null;

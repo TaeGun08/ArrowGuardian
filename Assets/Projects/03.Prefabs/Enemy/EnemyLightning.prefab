@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3506519480534926527}
   - component: {fileID: 531629492969387546}
   - component: {fileID: -1546912894658666515}
+  - component: {fileID: 7053492752607260874}
   m_Layer: 6
   m_Name: EnemyLightning
   m_TagString: Enemy
@@ -106,6 +107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d297d09024a82f4d8f223fd876f0176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7053492752607260874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331695247247783196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6096960bb13814b86b88558cfc21e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 1
 --- !u!1 &8157932607663912858
 GameObject:
   m_ObjectHideFlags: 0

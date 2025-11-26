@@ -54,7 +54,7 @@ public class UnitController : MonoBehaviour
         int count = unit.MultiShotCount;
         if (count <= 0) return;
 
-        float step = 5f;
+        float step = 2.5f;
 
         for (int i = 1; i < count; i++)
         {
@@ -66,7 +66,6 @@ public class UnitController : MonoBehaviour
             CreateArrowWithOffset(targetEnemy, offset);
         }
     }
-    
 
     private void CreateArrowWithOffset(Enemy enemy, float angleOffset)
     {
