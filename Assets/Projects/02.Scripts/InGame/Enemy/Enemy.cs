@@ -56,6 +56,7 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
         timer += Time.deltaTime;
         if (timer < enemyData.AttackDelay) return;
         GameManager.Instance.SetHealth(enemyData.Damage);
+        timer = 0f;
     }
 
     public virtual int TakeDamage(int damage)
@@ -66,6 +67,6 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
         
         if (Health <= 0) OnDeath?.Invoke();
         
-        return damage;
+        return sumDamage;
     }
 }

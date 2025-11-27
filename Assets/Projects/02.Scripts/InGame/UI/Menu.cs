@@ -1,16 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Menu : MonoBehaviour
+public class Menu : SingletonBase<Menu>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform contentTrs;
+    [SerializeField] private GameObject abilityUIPrefab;
+    
+    private readonly Dictionary<int, IAbility> abilityUIs = new Dictionary<int, IAbility>();
 
-    // Update is called once per frame
-    void Update()
+    public void SetAbilityContent(IAbility ability)
     {
+        int id = ability.Id;
+        
+        if (abilityUIs.TryGetValue(id, out IAbility _ability))
+        {
+            
+            return;
+        }
+
+        abilityUIs.Add(id, ability);
         
     }
 }

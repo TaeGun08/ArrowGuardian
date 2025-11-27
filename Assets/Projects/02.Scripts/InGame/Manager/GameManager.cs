@@ -83,7 +83,7 @@ public class GameManager : SingletonBase<GameManager>
 
     public void SetHealth(float hp)
     {
-        health += hp;
+        health -= hp;
 
         if (health <= 0)
         {

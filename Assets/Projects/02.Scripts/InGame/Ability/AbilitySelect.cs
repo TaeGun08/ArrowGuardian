@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class AbilitySelect : MonoBehaviour
 {
     private GameManager gameManager;
+    private Menu menu;
     
     private AbilityDraft abilityDraft;
     private IAbility ability;
@@ -17,9 +18,11 @@ public class AbilitySelect : MonoBehaviour
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private TMP_Text description;
     [SerializeField] private Image icon;
-
+    
     private void Awake()
     {
+        menu = Menu.Instance;
+        
         button = GetComponent<Button>();
      
         abilityDataSo = Resources.Load<AbilityDataSO>("AbilityDataSO");
