@@ -8,5 +8,5 @@ public interface IDamageAble
     public IRunTimeStats runTimeStats { get; }
     public IMovement IMovement { get; }
     
-    public void TakeDamage(int damage);
+    public int TakeDamage(int damage);
 }

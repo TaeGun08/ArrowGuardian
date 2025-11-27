@@ -21,7 +21,7 @@ public class AnimationController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         ChangeAnimation(state);
     }

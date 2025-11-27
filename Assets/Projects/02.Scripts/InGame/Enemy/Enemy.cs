@@ -23,6 +23,9 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     public int Armor { get; set; }
     
     public Action OnDeath { get; set; }
+
+    private float timer;
+    private float duration;
     
     protected virtual void Awake()
     {
@@ -36,11 +39,33 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
         Armor = enemyData.Armor;
         IsStop = false;
         IsStunned = false;
+        timer = 0;
+        
+        CombatManager.Instance.OnEnemyCombatEvent += Attack;
     }
 
-    public virtual void TakeDamage(int damage)
+    private void OnDisable()
     {
-        Health -= damage - Armor;
+        CombatManager.Instance.OnEnemyCombatEvent -= Attack;
+    }
+
+    private void Attack()
+    {
+        if (IsStop == false) return;
+        
+        timer += Time.deltaTime;
+        if (timer < enemyData.AttackDelay) return;
+        GameManager.Instance.SetHealth(enemyData.Damage);
+    }
+
+    public virtual int TakeDamage(int damage)
+    {
+        int sumDamage = damage - Armor;
+        if (sumDamage <= 0) sumDamage = 1;
+        Health -= sumDamage;
+        
         if (Health <= 0) OnDeath?.Invoke();
+        
+        return damage;
     }
 }

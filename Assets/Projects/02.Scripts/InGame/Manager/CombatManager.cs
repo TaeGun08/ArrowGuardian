@@ -9,16 +9,19 @@ public partial class CombatManager : SingletonBase<CombatManager>
     private GeneratorManager generatorManager;
     
     public readonly List<IStatusEffect> statusEffectList = new List<IStatusEffect>();
-    private Action statusEffectEvent;
-    
+    public Action OnStatusEffectEvent { get; private set; }
+
+    public Action OnEnemyCombatEvent { get; set; }
+
     private void Start()
     {
         generatorManager = GeneratorManager.Instance;
     }
 
     private void Update()
-    {
-        statusEffectEvent?.Invoke();
+    { 
+        OnStatusEffectEvent?.Invoke();
+        OnEnemyCombatEvent?.Invoke();
     }
 
     private float CalculateFinalDamage(IDamageAble sender, IDamageAble target)
@@ -70,16 +73,13 @@ public partial class CombatManager : SingletonBase<CombatManager>
         int sumDamage = (int)(finalDamage * multiplier);
         Debug.Log($"Sender ::: {sender.ElementType}, Target ::: {target.ElementType}, HitDamage ::: {sumDamage}");
         
-        target.TakeDamage(sumDamage);
-        
         var damagePopup = generatorManager.UIGenerator.CreateAndGetPool<DamagePopup>(0);
-        
         
         Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0.1f, 0.2f), 0f);
         damagePopup.Offset = offset;
 
         damagePopup.TargetTrs = target.Transform;
-        damagePopup.DamageText.text = $"{sumDamage - target.runTimeStats.Armor}";
+        damagePopup.DamageText.text = $"{target.TakeDamage(sumDamage)}";
         damagePopup.Sender = sender;
         damagePopup.ElementType = sender.ElementType;
         damagePopup.Show();
@@ -104,7 +104,7 @@ public partial class CombatManager : SingletonBase<CombatManager>
             {
                 statusEffectList.Add(statusEffect);
                 statusEffect.Apply();
-                statusEffectEvent += statusEffect.UpdateStatusEffect;
+                OnStatusEffectEvent += statusEffect.UpdateStatusEffect;
             }
             else
             {
@@ -124,7 +124,7 @@ public partial class CombatManager : SingletonBase<CombatManager>
     public void RemoveStatusEffect(IStatusEffect effect)
     {
         if (effect == null) return;
-        statusEffectEvent -= effect.UpdateStatusEffect;
+        OnStatusEffectEvent -= effect.UpdateStatusEffect;
         statusEffectList.Remove(effect);
     }
 }

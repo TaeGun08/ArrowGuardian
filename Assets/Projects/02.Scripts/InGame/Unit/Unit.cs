@@ -53,7 +53,8 @@ public abstract class Unit : SingletonBase<Unit>, IDamageAble, IRunTimeStats
         Gizmos.DrawWireSphere(transform.position, UnitData.Range);
     }
     
-    public void TakeDamage(int damage)
+    public int TakeDamage(int damage)
     {
+        return 0;
     }
 }
