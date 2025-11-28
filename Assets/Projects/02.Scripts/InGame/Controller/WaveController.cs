@@ -37,7 +37,7 @@ public class WaveController : MonoBehaviour
 
     private IEnumerator WaveCoroutine()
     {
-        while (currentWaveIndex < totalWaves)
+        while (gameObject.activeInHierarchy)
         {
             var waveData = waveDataSo.GetWaveData(currentWaveIndex);
 
@@ -53,7 +53,17 @@ public class WaveController : MonoBehaviour
             yield return new WaitUntil(() => enemiesAlive <= 0);
 
             currentWaveIndex++;
-            gameManager.UnitStatsUI.SetWaveText($"Wave {currentWaveIndex + 1}");
+            
+            if (currentWaveIndex < totalWaves)
+            {
+                gameManager.UnitStatsUI.SetWaveText($"Wave {currentWaveIndex + 1}");
+            }
+            else
+            {
+                gameManager.UnitStatsUI.SetWaveText($"Game Clear");
+                GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
+                yield break;
+            }
 
             yield return new WaitForSeconds(2f);
         }

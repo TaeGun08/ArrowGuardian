@@ -9,6 +9,7 @@ public class GameManager : SingletonBase<GameManager>
         Playing,
         Paused,
         GameOver,
+        GameClear,
     }
 
     public float TotalExp { get; private set; } = 5;
@@ -22,6 +23,8 @@ public class GameManager : SingletonBase<GameManager>
     public UnitStatsUI UnitStatsUI { get; set; }
 
     public Action DraftAction;
+
+    private float gameSpeed;
     
     private void Start()
     {
@@ -32,9 +35,6 @@ public class GameManager : SingletonBase<GameManager>
     private void Update()
     {
         if (Time.timeScale == 0) return;
-        
-        if (Input.GetKeyDown(KeyCode.P)) Time.timeScale = 3;
-        else if (Input.GetKeyUp(KeyCode.P)) Time.timeScale = 1;
         
         if (Input.GetKeyDown(KeyCode.U)) LevelUp();
     }
@@ -54,12 +54,15 @@ public class GameManager : SingletonBase<GameManager>
                 waveController.StartWave();
                 break;
             case GameState.Playing:
-                Time.timeScale = 1;
+                Time.timeScale = gameSpeed;
                 break;
             case GameState.Paused:
                 Time.timeScale = 0;
                 break;
             case GameState.GameOver:
+                SetGameState(GameState.Paused);
+                break;
+            case GameState.GameClear:
                 SetGameState(GameState.Paused);
                 break;
         }
@@ -91,5 +94,11 @@ public class GameManager : SingletonBase<GameManager>
         }
         
         UnitStatsUI.SetHealthText($"{health}");
+    }
+
+    public void SetGameSpeed(float speed)
+    {
+        gameSpeed = speed;
+        SetGameState(GameState.Playing);
     }
 }

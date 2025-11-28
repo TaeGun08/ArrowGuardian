@@ -8,6 +8,7 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private Image abilityImage;
     [SerializeField] private TMP_Text abilityStack;
+    private int stackCount = 1;
     
     public void SetName(string name)
     {
@@ -19,8 +20,9 @@ public class AbilityUI : MonoBehaviour
         abilityImage.sprite = icon;
     }
     
-    public void SetStack(string stack)
+    public void SetStack(int stack)
     {
-        abilityStack.text = stack;
+        stackCount += stack;
+        abilityStack.text = $"Stack: {stackCount}";
     }
 }

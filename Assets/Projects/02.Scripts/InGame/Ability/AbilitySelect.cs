@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class AbilitySelect : MonoBehaviour
 {
     private GameManager gameManager;
-    private Menu menu;
     
     private AbilityDraft abilityDraft;
     private IAbility ability;
@@ -18,11 +17,10 @@ public class AbilitySelect : MonoBehaviour
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private TMP_Text description;
     [SerializeField] private Image icon;
+    [SerializeField] private Menu menu;
     
     private void Awake()
     {
-        menu = Menu.Instance;
-        
         button = GetComponent<Button>();
      
         abilityDataSo = Resources.Load<AbilityDataSO>("AbilityDataSO");
@@ -40,6 +38,7 @@ public class AbilitySelect : MonoBehaviour
 
     private void ChoiceAbility()
     {
+        menu.SetAbilityContent(ability);
         abilityDraft.AddOrStackAbility(ability);
         abilityDraft.DraftLayout.SetActive(false);
         gameManager.SetGameState(GameManager.GameState.Playing);
