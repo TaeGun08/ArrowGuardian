@@ -5,11 +5,13 @@ public class Fireball : SkillBase
 {
     private const float MOVE_SPEED = 20f;
     private const float HIT_DISTANCE = 0.2f;
-    
+
+    private Vector3 lastPos;  // 🔥 프레임 전 위치 저장 (추가)
+
     public int FireballCount { get; set; }
 
     private float ExplosionRange => 0.4f + Mathf.Sqrt(FireballCount) * 0.2f;
-    
+
     public override void UseSkill()
     {
         CreateExplosion();
@@ -31,28 +33,40 @@ public class Fireball : SkillBase
 
     public override void UpdateSkill()
     {
-        MoveForward();
-
-        if (IsOutOfScreen())
-        {
-            EndSkill();
-            return;
-        }
-
+        Vector3 newPos = transform.position + transform.up * (MOVE_SPEED * Time.deltaTime);
+        
         Enemy nearest = enemyGenerator.GetClosetEnemy(transform.position);
-        if (nearest == null) return;
+        if (nearest != null)
+        {
+            float segDist = DistanceFromPointToSegment(
+                nearest.Transform.position,
+                lastPos,
+                newPos
+            );
 
-        if (Vector2.Distance(transform.position, nearest.Transform.position) > HIT_DISTANCE)
-            return;
+            if (segDist <= HIT_DISTANCE)
+            {
+                ApplyFireDamage(nearest, 1f);
+                UseSkill();
+                EndSkill();
+                return;
+            }
+        }
+        
+        transform.position = newPos;
+        lastPos = newPos;
 
-        ApplyFireDamage(nearest, 1f);
-        UseSkill();
+        if (IsOutOfScreen() == false) return;
         EndSkill();
     }
 
-    private void MoveForward()
+    private float DistanceFromPointToSegment(Vector2 point, Vector2 a, Vector2 b)
     {
-        transform.position += transform.up * (MOVE_SPEED * Time.deltaTime);
+        Vector2 ab = b - a;
+        float t = Vector2.Dot(point - a, ab) / ab.sqrMagnitude;
+        t = Mathf.Clamp01(t);
+        Vector2 closestPoint = a + t * ab;
+        return Vector2.Distance(point, closestPoint);
     }
 
     private bool IsOutOfScreen()

@@ -19,27 +19,53 @@ public abstract class Arrow : MonoBehaviour, IElementType
 
     public Action OnArrowImpact { get; set; }
 
+    private Vector3 lastPos;
+
     protected virtual void Start()
     {
         mainCamera = Camera.main;
         combatManager = CombatManager.Instance;
-        generatorManager =GeneratorManager.Instance;
+        generatorManager = GeneratorManager.Instance;
         unit = Unit.Instance;
+
+        lastPos = transform.position;
     }
 
     protected void Update()
     {
-        transform.position += transform.up * (arrowSpeed * Time.deltaTime);
+        Vector3 newPos = transform.position + transform.up * (arrowSpeed * Time.deltaTime);
 
         Enemy targetEnemy = generatorManager.EnemyGenerator.GetClosetEnemy(transform.position);
-        
-        if (targetEnemy == null) return;
-        if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.2f) return;
-        CombatManager.Instance.HandleDamage(unit, targetEnemy, 1);
-        InjectStatusEffect(elementType, unit, targetEnemy);
-        
-        if(statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
-        OnArrowImpact?.Invoke();
+        if (targetEnemy != null)
+        {
+            float distance = DistanceFromPointToSegment(
+                targetEnemy.Transform.position,
+                lastPos,
+                newPos
+            );
+
+            if (distance <= 0.2f)
+            {
+                CombatManager.Instance.HandleDamage(unit, targetEnemy, 1);
+                InjectStatusEffect(elementType, unit, targetEnemy);
+                if (statusEffects.Count != 0) combatManager.HandleApplyStatusEffect(statusEffects);
+
+                OnArrowImpact?.Invoke();
+                return;
+            }
+        }
+
+        transform.position = newPos;
+        lastPos = newPos;
+    }
+
+    protected float DistanceFromPointToSegment(Vector2 point, Vector2 a, Vector2 b)
+    {
+        Vector2 ab = b - a;
+        float t = Vector2.Dot(point - a, ab) / ab.sqrMagnitude;
+        t = Mathf.Clamp01(t);
+        Vector2 closestPoint = a + t * ab;
+        return Vector2.Distance(point, closestPoint);
     }
 
     protected void LateUpdate()

@@ -7,11 +7,16 @@ public class ChainLightning : SkillBase
 
     public int ChainCount { get; set; } = 2;
 
+    private const float MOVE_SPEED = 20f;
+    private const float HIT_DISTANCE = 0.2f;
+
+    private Vector3 lastPos;
+
     private void OnDisable()
     {
         hitEnemies.Clear();
     }
-    
+
     public override void UseSkill()
     {
         ExecuteChainLightning();
@@ -49,26 +54,35 @@ public class ChainLightning : SkillBase
         lightning.Setup(start, end);
         lightning.Activate();
     }
-    
+
     public override void UpdateSkill()
     {
-        transform.position += transform.up * (20f * Time.deltaTime);
+        Vector3 newPos = transform.position + transform.up * (MOVE_SPEED * Time.deltaTime);
+
+        Enemy firstHit = enemyGenerator.GetClosetEnemy(transform.position);
+        if (firstHit != null && !hitEnemies.Contains(firstHit))
+        {
+            float distance = DistanceFromPointToSegment(
+                firstHit.Transform.position,
+                lastPos,
+                newPos
+            );
+
+            if (distance <= HIT_DISTANCE)
+            {
+                HitEnemy(firstHit);
+                FinishSkill();
+                return;
+            }
+        }
+
+        transform.position = newPos;
+        lastPos = newPos;
 
         if (IsOutsideViewport(transform.position))
         {
             FinishSkill();
-            return;
         }
-
-        Enemy firstHit = enemyGenerator.GetClosetEnemy(transform.position);
-
-        if (firstHit == null || hitEnemies.Contains(firstHit)) return;
-
-        if (Vector2.Distance(transform.position, firstHit.Transform.position) > 0.2f) return;
-
-        HitEnemy(firstHit);
-
-        FinishSkill();
     }
 
     private bool IsOutsideViewport(Vector3 pos)
@@ -81,5 +95,14 @@ public class ChainLightning : SkillBase
     {
         skillController.OnSkillUpdated -= UpdateSkill;
         UseSkill();
+    }
+
+    private float DistanceFromPointToSegment(Vector2 point, Vector2 a, Vector2 b)
+    {
+        Vector2 ab = b - a;
+        float t = Vector2.Dot(point - a, ab) / ab.sqrMagnitude;
+        t = Mathf.Clamp01(t);
+        Vector2 closestPoint = a + t * ab;
+        return Vector2.Distance(point, closestPoint);
     }
 }

@@ -6,9 +6,13 @@ using Random = UnityEngine.Random;
 public class IceArrow : SkillBase
 {
     private List<Enemy> hitEnemies = new List<Enemy>();
-
     public int IceArrowCount { get; set; }
     private int targetCount;
+
+    private const float MOVE_SPEED = 20f;
+    private const float HIT_DISTANCE = 0.2f;
+
+    private Vector3 lastPos;
 
     private void OnDisable()
     {
@@ -19,56 +23,73 @@ public class IceArrow : SkillBase
     public override void UseSkill()
     {
         if (Random.value > 0.5f) return;
-        Enemy enemy = hitEnemies[targetCount];
+        if (hitEnemies.Count == 0 || targetCount >= hitEnemies.Count) return;
 
+        Enemy enemy = hitEnemies[targetCount];
         Debuff<FreezeEffect>(enemy);
     }
 
     public override void UpdateSkill()
     {
-        transform.position += transform.up * (20f * Time.deltaTime);
+        Vector3 newPos = transform.position + transform.up * (MOVE_SPEED * Time.deltaTime);
+        
+        Enemy targetEnemy = enemyGenerator.GetClosetEnemy(transform.position);
+        if (targetEnemy != null && !CheckEnemyList(targetEnemy))
+        {
+            float distance = DistanceFromPointToSegment(
+                targetEnemy.Transform.position,
+                lastPos,
+                newPos
+            );
 
+            if (distance <= HIT_DISTANCE)
+            {
+                combatManager.HandleDamage(Unit.Instance, targetEnemy, 1f, ElementType.Water);
+
+                hitEnemies.Add(targetEnemy);
+                Debuff<SlowEffect>(targetEnemy);
+
+                UseSkill();
+                targetCount++;
+
+                if (IceArrowCount <= targetCount)
+                {
+                    OnSkillImpact?.Invoke();
+                    skillController.OnSkillUpdated -= UpdateSkill;
+                    return;
+                }
+            }
+        }
+        
+        transform.position = newPos;
+        lastPos = newPos;
+        
         Vector3 screenPos = mainCamera.WorldToViewportPoint(transform.position);
-
         if (screenPos.x < 0 || screenPos.x > 1 || screenPos.y < 0 || screenPos.y > 1)
         {
             skillController.OnSkillUpdated -= UpdateSkill;
             OnSkillImpact?.Invoke();
         }
-
-        Enemy targetEnemy = enemyGenerator.GetClosetEnemy(transform.position);
-
-        if (targetEnemy == null || CheckEnemyList(targetEnemy)) return;
-
-        if (Vector2.Distance(transform.position, targetEnemy.Transform.position) > 0.2f) return;
-
-        combatManager.HandleDamage(Unit.Instance, targetEnemy, 1f, ElementType.Water);
-
-        hitEnemies.Add(targetEnemy);
-
-        Debuff<SlowEffect>(targetEnemy);
-
-        UseSkill();
-
-        targetCount++;
-
-        if (IceArrowCount > targetCount) return;
-
-        OnSkillImpact?.Invoke();
-        skillController.OnSkillUpdated -= UpdateSkill;
     }
 
     private bool CheckEnemyList(Enemy compare)
     {
         if (compare == null) return true;
 
-        int count = hitEnemies.Count;
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < hitEnemies.Count; i++)
         {
-            Enemy enemy = hitEnemies[i];
-            if (enemy == compare) return true;
+            if (hitEnemies[i] == compare) return true;
         }
 
         return false;
+    }
+
+    private float DistanceFromPointToSegment(Vector2 point, Vector2 a, Vector2 b)
+    {
+        Vector2 ab = b - a;
+        float t = Vector2.Dot(point - a, ab) / ab.sqrMagnitude;
+        t = Mathf.Clamp01(t);
+        Vector2 closestPoint = a + t * ab;
+        return Vector2.Distance(point, closestPoint);
     }
 }

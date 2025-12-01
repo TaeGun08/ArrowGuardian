@@ -24,7 +24,7 @@ public class GameManager : SingletonBase<GameManager>
 
     public Action DraftAction;
 
-    private float gameSpeed;
+    private float gameSpeed = 1f;
     
     private void Start()
     {
