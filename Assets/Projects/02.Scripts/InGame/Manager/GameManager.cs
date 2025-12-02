@@ -17,6 +17,8 @@ public class GameManager : SingletonBase<GameManager>
 
     private float totalHealth = 2000f;
     private float health;
+    
+    private GameState currentState;
 
     private WaveController waveController;
     private AbilityDraft abilityDraft;
@@ -47,7 +49,11 @@ public class GameManager : SingletonBase<GameManager>
 
     public void SetGameState(GameState state)
     {
-        switch (state)
+        if (currentState is GameState.GameClear or GameState.GameOver) return;
+        
+        currentState = state;
+        
+        switch (currentState)
         {
             case GameState.GameStart:
                 waveController = gameObject.AddComponent<WaveController>();
@@ -57,13 +63,9 @@ public class GameManager : SingletonBase<GameManager>
                 Time.timeScale = gameSpeed;
                 break;
             case GameState.Paused:
-                Time.timeScale = 0;
-                break;
             case GameState.GameOver:
-                SetGameState(GameState.Paused);
-                break;
             case GameState.GameClear:
-                SetGameState(GameState.Paused);
+                Time.timeScale = 0f;
                 break;
         }
     }
@@ -87,7 +89,8 @@ public class GameManager : SingletonBase<GameManager>
     public void SetHealth(float hp)
     {
         health -= hp;
-
+        Wall.Instance.HitWall();
+        
         if (health <= 0)
         {
             SetGameState(GameState.GameOver);

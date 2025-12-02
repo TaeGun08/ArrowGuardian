@@ -10,7 +10,7 @@ public class Fireball : SkillBase
 
     public int FireballCount { get; set; }
 
-    private float ExplosionRange => 0.4f + Mathf.Sqrt(FireballCount) * 0.2f;
+    private float ExplosionRange => 0.8f + Mathf.Sqrt(FireballCount) * 0.2f;
 
     public override void UseSkill()
     {
@@ -88,7 +88,7 @@ public class Fireball : SkillBase
 
         explosion.transform.position = transform.position;
 
-        float scale = ExplosionRange * 2f;
+        float scale = ExplosionRange * 1.5f;
         explosion.transform.localScale = Vector3.one * scale;
 
         explosion.Activate();
