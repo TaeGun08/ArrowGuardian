@@ -6,7 +6,7 @@ public class Fireball : SkillBase
     private const float MOVE_SPEED = 20f;
     private const float HIT_DISTANCE = 0.2f;
 
-    private Vector3 lastPos;  // 🔥 프레임 전 위치 저장 (추가)
+    private Vector3 lastPos;
 
     public int FireballCount { get; set; }
 
@@ -24,8 +24,8 @@ public class Fireball : SkillBase
             Enemy enemy = enemies[i];
             if (enemy == null) continue;
 
-            float dist = Vector2.Distance(transform.position, enemy.Transform.position);
-            if (dist > range) continue;
+            float distance = Vector2.Distance(transform.position, enemy.Transform.position);
+            if (distance > range) continue;
 
             ApplyFireDamage(enemy, 1.5f);
         }
@@ -38,13 +38,13 @@ public class Fireball : SkillBase
         Enemy nearest = enemyGenerator.GetClosetEnemy(transform.position);
         if (nearest != null)
         {
-            float segDist = DistanceFromPointToSegment(
+            float segDistance = DistanceFromPointToSegment(
                 nearest.Transform.position,
                 lastPos,
                 newPos
             );
 
-            if (segDist <= HIT_DISTANCE)
+            if (segDistance <= HIT_DISTANCE)
             {
                 ApplyFireDamage(nearest, 1f);
                 UseSkill();
@@ -77,6 +77,7 @@ public class Fireball : SkillBase
 
     private void EndSkill()
     {
+        lastPos = Vector3.zero;
         skillController.OnSkillUpdated -= UpdateSkill;
         OnSkillImpact?.Invoke();
     }
