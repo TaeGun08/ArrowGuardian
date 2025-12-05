@@ -6,7 +6,6 @@ public abstract class GeneratorBase : MonoBehaviour
 {
     protected const int INITIAL_COUNT = 10;
 
-    // index 기반 풀 저장
     protected readonly Dictionary<int, object> pools = new Dictionary<int, object>();
     
     protected PrefabSoBase prefabSoBase;
@@ -29,10 +28,7 @@ public abstract class GeneratorBase : MonoBehaviour
     public virtual T CreateAndGetPool<T>(int index) where T : MonoBehaviour
     {
         var pool = GetOrCreatePool<T>(index);
-        if (pool == null)
-            return null;
-
-        return pool.Get();
+        return pool?.Get();
     }
     
     public virtual void ReturnPool<T>(int index, T element) where T : MonoBehaviour

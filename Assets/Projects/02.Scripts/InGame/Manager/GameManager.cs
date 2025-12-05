@@ -52,7 +52,7 @@ public class GameManager : SingletonBase<GameManager>
         if (currentState is GameState.GameClear or GameState.GameOver) return;
         
         currentState = state;
-        
+
         switch (currentState)
         {
             case GameState.GameStart:
@@ -62,9 +62,7 @@ public class GameManager : SingletonBase<GameManager>
             case GameState.Playing:
                 Time.timeScale = gameSpeed;
                 break;
-            case GameState.Paused:
-            case GameState.GameOver:
-            case GameState.GameClear:
+            case GameState.Paused or GameState.GameOver or GameState.GameClear:
                 Time.timeScale = 0f;
                 break;
         }
