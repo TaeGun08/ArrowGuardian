@@ -1,0 +1,8 @@
+Id,Name,Price,ImageName,IsForSale
+0,Fire Fairy,500,fire_fairy,true
+1,Water Fairy,500,water_fairy,true
+2,Wind Fairy,500,wind_fairy,true
+3,Earth Fairy,500,earth_fairy,true
+4,Lightning Fairy,700,lightning_fairy,true
+5,Dark Fairy,800,dark_fairy,true
+6,Light Fairy,800,light_fairy,false

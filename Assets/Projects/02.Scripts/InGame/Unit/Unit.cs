@@ -37,7 +37,7 @@ public abstract class Unit : SingletonBase<Unit>, IDamageAble, IRunTimeStats
     {
         base.Awake();
         
-        UnitData = UnitLoaderCSV.GetUnitByName(unitName.ToString());
+        UnitData = CSVLoader.LoadById<UnitData>("UnitData", (int)unitName);
 
         ElementType = UnitData.ElementType;
         Damage = UnitData.Damage;
