@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyData
 {
+    public int Id { get; set; }
     public ElementType ElementType { get; set; }
     public int Health { get; set; }
     public int MaxHealth { get; set; }

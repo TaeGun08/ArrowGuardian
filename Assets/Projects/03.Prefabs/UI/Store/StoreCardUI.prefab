@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2837705374775740121}
   - component: {fileID: 3849410684936743058}
   - component: {fileID: 6739067140603519996}
+  - component: {fileID: 571058489682032203}
   m_Layer: 5
   m_Name: StoreCardUI
   m_TagString: Untagged
@@ -79,6 +80,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &571058489682032203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304897458969488275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55900ae97deeed643abad27f959a67a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardImage: {fileID: 1977649111734190816}
+  cardName: {fileID: 8244549813721390228}
+  cardPrice: {fileID: 5655863996018570318}
 --- !u!1 &1331554093386965057
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +318,7 @@ GameObject:
   - component: {fileID: 1840884282755425034}
   - component: {fileID: 5655863996018570318}
   m_Layer: 5
-  m_Name: Pay
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

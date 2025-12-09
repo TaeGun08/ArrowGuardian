@@ -3,6 +3,7 @@ using System;
 [Serializable]
 public class UnitData
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public ElementType ElementType { get; set; }
     public int Health { get; set; }
