@@ -1,4 +1,4 @@
-public class GeneratorManager : SingletonBase<GeneratorManager>
+public sealed class GeneratorManager : SingletonBase<GeneratorManager>
 {
     public ArrowGenerator ArrowGenerator { get; private set; }
     public EnemyGenerator EnemyGenerator { get; private set; }

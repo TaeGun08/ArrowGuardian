@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SkillGenerator : GeneratorBase
+public sealed class SkillGenerator : GeneratorBase
 {
     private void Awake()
     {

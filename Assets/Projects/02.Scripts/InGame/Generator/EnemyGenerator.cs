@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EnemyGenerator : GeneratorBase
+public sealed class EnemyGenerator : GeneratorBase
 {
     private readonly List<Enemy> enemyList = new List<Enemy>();
 

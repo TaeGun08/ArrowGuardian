@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public partial class CombatManager : SingletonBase<CombatManager>
+public sealed partial class CombatManager : SingletonBase<CombatManager>
 {
     private float CalculateFinalDamage(IDamageAble sender, IDamageAble target, ElementType elementType)
     {

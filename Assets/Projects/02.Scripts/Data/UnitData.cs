@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class UnitData
+public sealed class UnitData
 {
     public int Id { get; set; }
     public string Name { get; set; }

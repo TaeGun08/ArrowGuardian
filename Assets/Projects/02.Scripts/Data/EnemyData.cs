@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyData
+public sealed class EnemyData
 {
     public int Id { get; set; }
     public ElementType ElementType { get; set; }

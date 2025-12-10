@@ -29,7 +29,7 @@ public abstract class Enemy : MonoBehaviour, IElementType, IDamageAble, IMovemen
     
     protected virtual void Awake()
     {
-        enemyData = CSVLoader.LoadById<EnemyData>("EnemyData", (int)elementType);
+        enemyData = CsvUtility.LoadById<EnemyData>("EnemyData", (int)elementType);
     }
 
     private void OnEnable()

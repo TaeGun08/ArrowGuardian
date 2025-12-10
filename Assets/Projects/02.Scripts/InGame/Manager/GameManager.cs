@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameManager : SingletonBase<GameManager>
+public sealed class GameManager : SingletonBase<GameManager>
 {
     public enum GameState
     {

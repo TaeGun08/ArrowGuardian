@@ -14,7 +14,7 @@ public interface IUIElement
     public void UpdateUI(); 
 }
 
-public class UIGenerator : GeneratorBase
+public sealed class UIGenerator : GeneratorBase
 {
     private void Awake()
     {

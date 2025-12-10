@@ -5,4 +5,4 @@ Id,Name,Price,ImageName,IsForSale
 3,Earth Fairy,500,earth_fairy,true
 4,Lightning Fairy,700,lightning_fairy,true
 5,Dark Fairy,800,dark_fairy,true
-6,Light Fairy,800,light_fairy,false
+6,Light Fairy,800,light_fairy,true

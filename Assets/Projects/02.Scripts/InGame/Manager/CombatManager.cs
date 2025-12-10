@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public partial class CombatManager : SingletonBase<CombatManager>
+public sealed partial class CombatManager : SingletonBase<CombatManager>
 { 
     private GeneratorManager generatorManager;
     
