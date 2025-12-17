@@ -10,11 +10,26 @@ public class StoreCardUI : MonoBehaviour
     [SerializeField] private Image cardImage;
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private TMP_Text cardPrice;
+    [SerializeField] private GameObject soldOut;
 
-    public void Initialize(StoreData storeData)
+    [Header("UI")]
+    [SerializeField] private Sprite[] sprites;
+    
+    public void Initialize(StoreData data)
     {
-        // cardImage.sprite = context.Icon;
-        // cardName.text = context.Name;
-        // cardPrice.text = context.Price.ToString();
+        cardImage.sprite = GetSprite(data.Id);
+        cardName.text = data.Name;
+        cardPrice.text = $"{data.Price} Gold";
+        ForSale(data.IsForSale);
+    }
+
+    private Sprite GetSprite(int id)
+    {
+        return sprites[id] == null ?  sprites[0] : sprites[id];
+    }
+
+    private void ForSale(bool forSale)
+    {
+        soldOut.SetActive(!forSale);
     }
 }

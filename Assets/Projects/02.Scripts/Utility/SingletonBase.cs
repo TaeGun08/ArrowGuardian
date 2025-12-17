@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [Header("Singleton Settings")]
+    [SerializeField] protected bool dontDestroy = true;
     protected static T instance;
 
     public static T Instance
@@ -16,7 +18,6 @@ public abstract class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
             
             GameObject obj = new GameObject(typeof(T).Name);
             instance = obj.AddComponent<T>();
-            DontDestroyOnLoad(instance);
             
             return instance;
         }
@@ -27,9 +28,12 @@ public abstract class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
         if (instance == null)
         {
             instance = this as T;
-            DontDestroyOnLoad(instance);
+            if (dontDestroy)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
-        else
+        else if (instance != this)
         {
             Destroy(gameObject);
         }

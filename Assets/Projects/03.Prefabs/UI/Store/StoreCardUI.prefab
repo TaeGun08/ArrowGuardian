@@ -95,6 +95,15 @@ MonoBehaviour:
   cardImage: {fileID: 1977649111734190816}
   cardName: {fileID: 8244549813721390228}
   cardPrice: {fileID: 5655863996018570318}
+  soldOut: {fileID: 7276442058326853145}
+  sprites:
+  - {fileID: 7428215207140593183, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
+  - {fileID: 7092022272654744797, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
+  - {fileID: -4287429219802737814, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
+  - {fileID: -6384869719890568080, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
+  - {fileID: 3932599309163634828, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
+  - {fileID: -7327304649594125853, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
+  - {fileID: -3273057243999948479, guid: fcd6dd22576cb404d8e6d88c6fc3adf3, type: 3}
 --- !u!1 &1331554093386965057
 GameObject:
   m_ObjectHideFlags: 0
