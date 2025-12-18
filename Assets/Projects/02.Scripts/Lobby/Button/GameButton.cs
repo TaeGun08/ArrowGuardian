@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameButton : ButtonEvent
+public class GameButton : ButtonEventBase
 {
     public override void ButtonPressed()
     {

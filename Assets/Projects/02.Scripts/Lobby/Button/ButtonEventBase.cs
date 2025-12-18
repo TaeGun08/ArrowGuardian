@@ -2,23 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract partial class ButtonEvent : MonoBehaviour, IButtonEvent
+[RequireComponent(typeof(Button))]
+public abstract class ButtonEventBase : MonoBehaviour, IButtonEvent
 {
     protected Button button;
     
     public Action OnButtonEvent { get; set; }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         button = GetComponent<Button>();
+        
+        button.onClick.AddListener(() => OnButtonEvent?.Invoke());
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         OnButtonEvent += ButtonPressed;
     }
 
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         OnButtonEvent -= ButtonPressed;
     }
